@@ -1,0 +1,3 @@
+[submodule "videojs-markers"]
+	path = videojs-markers
+	url = https://github.com/spchuang/videojs-markers.git

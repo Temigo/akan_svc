@@ -3,3 +3,7 @@
 	width: 400;
 	margin: 10px;
 }
+
+.vjs-progress-control {
+display: none;
+}

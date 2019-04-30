@@ -15,13 +15,59 @@ function make_slides(f) {
     }
   });
 
+  slides.practice = slide({
+    name : "practice",
+    start: function() {
+      var player = videojs('practice-video', {
+        controls: true,
+        autoplay: false,
+        preload: 'auto',
+        children: {
+          controlBar: {
+            children: {
+              volumeControl: false
+            }
+          }
+        }
+      }, function() {
+        console.log('ready');
+        this.play();
+      });
+      console.log(player)
+      //console.log(videojs.players)
+      //var player = videojs.players['practice-video'];
+      // player.ready(function() {
+      //   console.log('ready');
+      //   player.play();
+      // });
+      //player.play();
+      player.markers({
+        markers: []
+      });
+      // Delay to start video
+      // setTimeout(function() {
+      //   player.play();
+      // }, 2000);
+      // Event on space bar key press
+      document.body.onkeyup = function(e){
+          if(e.keyCode == 32){
+              player.markers.add([{ time: player.currentTime(), text: 'hi'}]);
+              console.log(player.markers.getMarkers());
+          }
+      }
+    },
+    button : function() {
+      exp.go(); //use exp.go() if and only if there is no "present" data.
+    }
+  });
+
   slides.one_slider = slide({
     name : "one_slider",
     present: exp.stims, //every element in exp.stims is passed to present_handle one by one as 'stim'
-    
+
     present_handle : function(stim) {
       $(".err").hide();
-    
+
       this.stim = stim; // store this information in the slide so you can record it later
       $(".prompt").html(stim.sentence);
 
@@ -50,7 +96,9 @@ function make_slides(f) {
     log_responses : function() {
     exp.data_trials.push({
         "stim" : this.stim.sentence,
-        "response" : exp.sliderPost
+        "response" : exp.sliderPost,
+        "item": this.stim.item,
+        "condition": this.stim.condition
     });
 
     }
@@ -97,11 +145,21 @@ function init() {
   exp.trials = [];
   exp.catch_trials = [];
 
-  //exp.condition = _.sample(["condition1", "condition2"]);
+  exp.condition = _.sample(["ambiguous", "unambiguous"]);
+  console.log(exp.condition);
 
-  exp.stims =  [    
-    {sentence: "The horse raced past the barn fell."}, 
+  var items =  [
+    {sentence: "The horse raced past the barn fell.", item: "horse", condition: "ambiguous"},
+    {sentence: "The horse that raced past the barn fell.", item:"horse", condition:"unambiguous"},
+    {sentence: "When Fred eats food gets thrown.", item: "food", condition:"ambiguous"},
+    {sentence: "When Fred eats, food gets thrown.", item:"food", condition: "unambiguous"}
   ];
+
+  var condStims = items.filter((item) => {return item.condition == exp.condition});
+
+  console.log(condStims);
+
+  exp.sims = _.shuffle(condStims);
 
   exp.system = {
       Browser : BrowserDetect.browser,
@@ -113,7 +171,7 @@ function init() {
     };
 
   //blocks of the experiment:
-  exp.structure=["i0", "instructions", "one_slider", 'subj_info', 'thanks'];
+  exp.structure=["i0", "instructions", "practice", "one_slider", 'subj_info', 'thanks'];
 
   exp.data_trials = [];
   //make corresponding slides:
