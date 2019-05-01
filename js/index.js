@@ -22,32 +22,48 @@ function make_slides(f) {
         controls: true,
         autoplay: false,
         preload: 'auto',
-        children: {
-          controlBar: {
-            children: {
-              volumeControl: false
-            }
-          }
+        inactivityTimeout: 0, // keep control bar visible
+        fluid: true, // center and adapt to video ratio
+        controlBar: {
+          children: [
+            //"playToggle", // remove play button
+            "volumePanel",
+            "volumeMenuButton",
+            "durationDisplay",
+            "timeDivider",
+            "currentTimeDisplay",
+            "progressControl",
+            "remainingTimeDisplay",
+            "fullscreenToggle"
+          ]
         }
       }, function() {
-        console.log('ready');
-        this.play();
+        var player = this;
+        player.src({src: 'data/fufu.mp4', type: 'video/mp4'});
+        // Delay to start video
+        setTimeout(function() {
+          player.play();
+        }, 0);
+        player.controlBar.progressControl.disable();
+        // var currentTime = 0;
+        // player.on("seeking", function(event) {
+        //   player.currentTime(currentTime);
+        // });
+        // player.on("seeked", function(event) {
+        //   player.currentTime(currentTime);
+        // });
+        //
+        // setInterval(function () {
+        //   if (!player.paused()) {
+        //     currentTime = player.currentTime();
+        //   }
+        // }, 1000);
       });
-      console.log(player)
-      //console.log(videojs.players)
-      //var player = videojs.players['practice-video'];
-      // player.ready(function() {
-      //   console.log('ready');
-      //   player.play();
-      // });
-      //player.play();
+
       player.markers({
         markers: []
       });
-      // Delay to start video
-      // setTimeout(function() {
-      //   player.play();
-      // }, 2000);
+
       // Event on space bar key press
       document.body.onkeyup = function(e){
           if(e.keyCode == 32){

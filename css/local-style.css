@@ -4,6 +4,10 @@
 	margin: 10px;
 }
 
-.vjs-progress-control {
-display: none;
-}
+/* .video-js-responsive-container .video-js {
+    height: 75%;
+    width: 50%;
+    position: relative;
+    top: 0%;
+    left: 0%;
+} */
