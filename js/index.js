@@ -39,7 +39,7 @@ function make_slides(f) {
         }
       }, function() {
         var player = this;
-        player.src({src: 'data/fufu.mp4', type: 'video/mp4'});
+        player.src({src: 'data/fufu2.mp4', type: 'video/mp4'});
         // Delay to start video
         setTimeout(function() {
           player.play();
@@ -61,7 +61,11 @@ function make_slides(f) {
       });
 
       player.markers({
-        markers: []
+        markers: [],
+        markerStyle: {
+          'width': '4px',
+          'background-color': 'red'
+        }
       });
 
       // Event on space bar key press
@@ -79,43 +83,89 @@ function make_slides(f) {
 
   slides.one_slider = slide({
     name : "one_slider",
-    present: exp.stims, //every element in exp.stims is passed to present_handle one by one as 'stim'
+    present: exp.videos, //every element in exp.stims is passed to present_handle one by one as 'stim'
+    start: function() {
+      this.times = [];
+      var player = videojs('experiment-video', {
+        controls: true,
+        autoplay: false,
+        preload: 'auto',
+        inactivityTimeout: 0, // keep control bar visible
+        fluid: true, // center and adapt to video ratio
+        controlBar: {
+          children: [
+            //"playToggle", // remove play button
+            "volumePanel",
+            "volumeMenuButton",
+            "durationDisplay",
+            "timeDivider",
+            "currentTimeDisplay",
+            "progressControl",
+            "remainingTimeDisplay",
+            "fullscreenToggle"
+          ]
+        }
+      }, function() {
+        var player = this;
+        // Delay to start video
+        // setTimeout(function() {
+        //   player.play();
+        // }, 0);
+        player.controlBar.progressControl.disable();
+      });
+      player.markers({
+        markers: [],
+        markerStyle: {
+          'width': '4px',
+          'background-color': 'red'
+        }
+      });
+      this.player = player;
+
+      // Event on space bar key press
+      document.body.onkeyup = function(e){
+        if(e.keyCode == 32){
+          e.preventDefault();
+          var time = player.currentTime();
+          player.markers.add([{ time: time, text: 'hi'}]);
+          exp.times.push(time);
+        }
+      }
+    },
 
     present_handle : function(stim) {
       $(".err").hide();
-
       this.stim = stim; // store this information in the slide so you can record it later
+      // Display sentence
       $(".prompt").html(stim.sentence);
-
-      this.init_sliders();
-      exp.sliderPost = null; //erase current slider value
+      // Set src
+      this.player.src({src: stim.src, type: 'video/mp4'});
+      // Reset markers
+      this.player.markers.reset([]);
+      exp.times = [];
+      // Start playing
+      this.player.play();
     },
 
     button : function() {
-      if (exp.sliderPost == null) {
-        $(".err").show();
-      } else {
+      // if (exp.sliderPost == null) {
+      //   $(".err").show();
+      // } else {
       this.log_responses();
 
       /* use _stream.apply(this); if and only if there is
       "present" data. (and only *after* responses are logged) */
       _stream.apply(this);
-      }
+      //}
     },
 
-    init_sliders : function() {
-      utils.make_slider("#single_slider", function(event, ui) {
-        exp.sliderPost = ui.value;
-      });
-    },
 
     log_responses : function() {
-    exp.data_trials.push({
-        "stim" : this.stim.sentence,
-        "response" : exp.sliderPost,
-        "item": this.stim.item,
-        "condition": this.stim.condition
-    });
+      exp.data_trials.push({
+          "src" : this.stim.src,
+          "description": this.stim.sentence,
+          "response" : exp.times//this.player.markers.getMarkers()
+      });
 
     }
   });
@@ -145,7 +195,7 @@ function make_slides(f) {
           "trials" : exp.data_trials,
           "catch_trials" : exp.catch_trials,
           "system" : exp.system,
-          "condition" : exp.condition,
+          //"condition" : exp.condition,
           "subject_information" : exp.subj_data,
           "time_in_minutes" : (Date.now() - exp.startT)/60000
       };
@@ -161,21 +211,11 @@ function init() {
   exp.trials = [];
   exp.catch_trials = [];
 
-  exp.condition = _.sample(["ambiguous", "unambiguous"]);
-  console.log(exp.condition);
-
-  var items =  [
-    {sentence: "The horse raced past the barn fell.", item: "horse", condition: "ambiguous"},
-    {sentence: "The horse that raced past the barn fell.", item:"horse", condition:"unambiguous"},
-    {sentence: "When Fred eats food gets thrown.", item: "food", condition:"ambiguous"},
-    {sentence: "When Fred eats, food gets thrown.", item:"food", condition: "unambiguous"}
+  exp.videos = [
+    {sentence: "Fufuo", src: "data/fufu2.mp4"},
+    {sentence: "Market", src: "data/market2.mp4"}
   ];
-
-  var condStims = items.filter((item) => {return item.condition == exp.condition});
-
-  console.log(condStims);
-
-  exp.sims = _.shuffle(condStims);
+  exp.times = []; // used as temporary storage
 
   exp.system = {
       Browser : BrowserDetect.browser,
@@ -187,7 +227,15 @@ function init() {
     };
 
   //blocks of the experiment:
-  exp.structure=["i0", "instructions", "practice", "one_slider", 'subj_info', 'thanks'];
+  exp.structure=[
+    "i0",
+    //"registration",
+    //"instructions",
+    "practice",
+    "one_slider",
+    'subj_info',
+    'thanks'
+  ];
 
   exp.data_trials = [];
   //make corresponding slides:

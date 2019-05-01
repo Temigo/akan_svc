@@ -11,3 +11,11 @@
     top: 0%;
     left: 0%;
 } */
+
+.video-js .vjs-progress-holder {
+	height: 0.5em;
+}
+
+.video-js {
+	margin-bottom: 10px;
+}

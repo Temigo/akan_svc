@@ -54,6 +54,12 @@
     	<!--Consent form used in Stanford linguistics department and is good for ling245. Otherwise, modified to whatever is required for you given your affiliation.-->
     </div>
 
+		<div class="slide" id="registration">
+	  		<h3>Registration</h3>
+	  		<p>Email address: <input type="text" id="email" /> </p>
+	  		<button onclick="_s.button()">Continue</button>
+		</div>
+
 	<!--Instruction slide-->
 	<div class="slide" id="instructions">
   		<h3>Instructions</h3>
@@ -79,12 +85,20 @@
 
 
   	<div class="slide" id="one_slider">
-    	<p>How natural is the sentence below?</p>
+			<h3>Experiment video</h3>
+    	<p>Please press the space bar every time that you think
+			an event starts or ends.</p>
     	<p class="prompt"></p>
-   		<table id="slider_table" class="slider_table">
+   		<!-- <table id="slider_table" class="slider_table">
      		<tr><td class="left">unnatural</td><td class="right">natural</td></tr>
      		<tr><td colspan="2"><div id="single_slider" class="slider"></div></td></tr>
-   		</table>
+   		</table> -->
+			<video id='experiment-video' class='video-js' width='640' height='264'>
+				<p class='vjs-no-js'>
+					To view this video please enable JavaScript, and consider upgrading to a web browser that
+					<a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
+				</p>
+			</video>
     	<button onclick="_s.button()">Continue</button>
     	<div class="err">Please adjust the slider before continuing.</div>
   	</div>
