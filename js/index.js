@@ -162,6 +162,7 @@ function make_slides(f) {
 
     log_responses : function() {
       exp.data_trials.push({
+          "id": this.stim.id,
           "src" : this.stim.src,
           "description": this.stim.sentence,
           "response" : exp.times//this.player.markers.getMarkers()
@@ -252,9 +253,11 @@ slides.preference_slide = slide({
 
   log_responses : function() {
     exp.data_trials.push({
-        "src" : this.stim.src,
-        "description": this.stim.sentence,
-        "response" : exp.times//this.player.markers.getMarkers()
+        "id": this.stim.id,
+        "src" : this.stim.roi,
+        "svc_description": this.stim.svc,
+        "cc_description": this.stim.cc,
+        "preference": $('input[name="sentence"]:checked').val(),
     });
 
   }
@@ -307,6 +310,7 @@ function init() {
 
   exp.videos = [
     {
+      id: 0,
       sentence: "Fufuo",
       src: "data/fufu2.mp4",
       roi: "data/fufu2_roi.mp4",
@@ -314,6 +318,7 @@ function init() {
       cc: "CC sentence"
     },
     {
+      id: 1,
       sentence: "Market",
       src: "data/market2.mp4",
       roi: "data/market2_roi.mp4",
@@ -322,10 +327,10 @@ function init() {
     }
   ];
   exp.videos1 = exp.videos.map(function(video) {
-    return {sentence: video.sentence, src: video.src};
+    return {id: video.id, sentence: video.sentence, src: video.src};
   });
   exp.videos2 = exp.videos.map(function(video) {
-    return {roi: video.roi, svc: video.svc, cc: video.cc};
+    return {id:video.id, roi: video.roi, svc: video.svc, cc: video.cc};
   });
   exp.times = []; // used as temporary storage
 
