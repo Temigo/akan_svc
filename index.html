@@ -84,25 +84,47 @@
 	</div>
 
 
-  	<div class="slide" id="one_slider">
-			<h3>Experiment video</h3>
-    	<p>Please press the space bar every time that you think
-			an event starts or ends.</p>
-    	<p class="prompt"></p>
-   		<!-- <table id="slider_table" class="slider_table">
-     		<tr><td class="left">unnatural</td><td class="right">natural</td></tr>
-     		<tr><td colspan="2"><div id="single_slider" class="slider"></div></td></tr>
-   		</table> -->
-			<video id='experiment-video' class='video-js' width='640' height='264'>
-				<p class='vjs-no-js'>
-					To view this video please enable JavaScript, and consider upgrading to a web browser that
-					<a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
-				</p>
-			</video>
-    	<button onclick="_s.button()">Continue</button>
-    	<div class="err">Please adjust the slider before continuing.</div>
-  	</div>
+	<div class="slide" id="one_slider">
+		<h3>Experiment video</h3>
+  	<p>Please press the space bar every time that you think
+		an event starts or ends.</p>
+  	<p class="prompt"></p>
+ 		<!-- <table id="slider_table" class="slider_table">
+   		<tr><td class="left">unnatural</td><td class="right">natural</td></tr>
+   		<tr><td colspan="2"><div id="single_slider" class="slider"></div></td></tr>
+ 		</table> -->
+		<video id='experiment-video' class='video-js' width='640' height='264'>
+			<p class='vjs-no-js'>
+				To view this video please enable JavaScript, and consider upgrading to a web browser that
+				<a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
+			</p>
+		</video>
+  	<button onclick="_s.button()">Continue</button>
+  	<div class="err">Please adjust the slider before continuing.</div>
+	</div>
 
+	<div class="slide" id="preference_slide">
+		<h3>Preference</h3>
+  	<p>Please choose your preferred description of the video.</p>
+  	<p class="prompt"></p>
+ 		<!-- <table id="slider_table" class="slider_table">
+   		<tr><td class="left">unnatural</td><td class="right">natural</td></tr>
+   		<tr><td colspan="2"><div id="single_slider" class="slider"></div></td></tr>
+ 		</table> -->
+
+		<video id='preference-video' class='video-js' width='640' height='264'>
+			<p class='vjs-no-js'>
+				To view this video please enable JavaScript, and consider upgrading to a web browser that
+				<a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
+			</p>
+		</video>
+
+		<label><input type="radio"  name="sentence" value="svc"/><span class="svc-sentence"></span> </label>
+		<label><input type="radio"  name="sentence" value="cc"/><span class="cc-sentence"></span></label>
+		<br/>
+  	<button onclick="_s.button()">Continue</button>
+  	<div class="err">Please adjust the slider before continuing.</div>
+	</div>
 
 	<div class="slide"  id="subj_info">
 	    <div class="long_form">
