@@ -121,6 +121,7 @@ function make_slides(f) {
         }
       });
       this.player = player;
+      this.startT = Date.now();
 
       // Event on space bar key press
       document.body.onkeyup = function(e){
@@ -161,11 +162,22 @@ function make_slides(f) {
 
 
     log_responses : function() {
-      exp.data_trials.push({
-          "id": this.stim.id,
+      var data = {
+          "user_id": exp.userId,
+          "video_id": this.stim.id,
           "src" : this.stim.src,
           "description": this.stim.sentence,
-          "response" : exp.times//this.player.markers.getMarkers()
+          "response" : exp.times,
+          "duration": (Date.now() - this.startT)/60000,
+          "timestamp": Date.now()
+      };
+      console.log(data);
+      exp.data_trials.push(data);
+      axios.post(exp.backendURL + '/new/videos', data)
+      .then(function(response) {
+        console.log(response);
+      }).catch(function(error) {
+        console.log(error);
       });
 
     }
@@ -211,6 +223,7 @@ slides.preference_slide = slide({
     //   }
     // });
     this.player = player;
+    this.startT = Date.now();
 
     // Event on space bar key press
     // document.body.onkeyup = function(e){
@@ -250,16 +263,24 @@ slides.preference_slide = slide({
     //}
   },
 
-
   log_responses : function() {
-    exp.data_trials.push({
-        "id": this.stim.id,
-        "src" : this.stim.roi,
+    var data = {
+        "user_id": exp.userId,
+        "video_id": this.stim.id,
+        //"src" : this.stim.roi,
         "svc_description": this.stim.svc,
         "cc_description": this.stim.cc,
+        "duration": (Date.now() - this.startT)/60000,
         "preference": $('input[name="sentence"]:checked').val(),
+        "timestamp": Date.now()
+    };
+    exp.data_trials.push(data);
+    axios.post(exp.backendURL + '/new/preferences', data)
+    .then(function(response) {
+      console.log(response);
+    }).catch(function(error) {
+      console.log(error);
     });
-
   }
 });
 
@@ -270,15 +291,18 @@ slides.preference_slide = slide({
     name : "subj_info",
     submit : function(e){
       exp.subj_data = {
+        user_id: exp.userId,
         language : $("#language").val(),
-        enjoyment : $("#enjoyment").val(),
-        asses : $('input[name="assess"]:checked').val(),
+        //enjoyment : $("#enjoyment").val(),
+        assess : $('input[name="assess"]:checked').val(),
         age : $("#age").val(),
         gender : $("#gender").val(),
         education : $("#education").val(),
         comments : $("#comments").val(),
         problems: $("#problems").val(),
-        fairprice: $("#fairprice").val()
+        //fairprice: $("#fairprice").val()
+        email: $("#email").val(),
+        name: $("#name").val(),
       };
       exp.go(); //use exp.go() if and only if there is no "present" data.
     }
@@ -295,7 +319,20 @@ slides.preference_slide = slide({
           "subject_information" : exp.subj_data,
           "time_in_minutes" : (Date.now() - exp.startT)/60000
       };
-      setTimeout(function() {turk.submit(exp.data);}, 1000);
+      console.log(exp.data);
+      //setTimeout(function() {turk.submit(exp.data);}, 1000);
+      axios.post(exp.backendURL + '/new/users', exp.subj_data)
+      .then(function(response) {
+        console.log(response);
+      }).catch(function(error) {
+        console.log(error);
+      });
+      axios.post(exp.backendURL + '/new/systems', exp.system)
+      .then(function(response) {
+        console.log(response);
+      }).catch(function(error) {
+        console.log(error);
+      });
     }
   });
 
@@ -307,6 +344,9 @@ function init() {
   exp.trials = [];
   exp.catch_trials = [];
   exp.nQs = 40;
+
+  exp.userId = 0; // TODO
+  exp.backendURL = 'http://stanford.edu/~ldomine/cgi-bin/twi.cgi';
 
   exp.videos = [
     {
@@ -326,6 +366,7 @@ function init() {
       cc: "CC sentence"
     }
   ];
+  // Divide into two lists of videos for the 2 parts of the experiment
   exp.videos1 = exp.videos.map(function(video) {
     return {id: video.id, sentence: video.sentence, src: video.src};
   });
@@ -335,12 +376,13 @@ function init() {
   exp.times = []; // used as temporary storage
 
   exp.system = {
-      Browser : BrowserDetect.browser,
-      OS : BrowserDetect.OS,
-      screenH: screen.height,
-      screenUH: exp.height,
-      screenW: screen.width,
-      screenUW: exp.width
+      user_id : exp.userId,
+      browser : BrowserDetect.browser,
+      os : BrowserDetect.OS,
+      height: screen.height,
+      //screenUH: exp.height,
+      width: screen.width,
+      //screenUW: exp.width
     };
 
   //blocks of the experiment:
@@ -348,7 +390,7 @@ function init() {
     "i0",
     //"registration",
     //"instructions",
-    "practice",
+    //"practice",
     "one_slider",
     "preference_slide",
     'subj_info',

@@ -40,6 +40,9 @@
     <!-- experiment file -->
     <script src="js/index.js"></script>
 
+		<!-- axios for REST requests -->
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 </head>
 
 <body onload="init();">
@@ -138,8 +141,8 @@
 	      <p>Were there any problems or bugs in the experiment?</p>
 	      <textarea id="problems" rows="2" cols="50"></textarea>
 
-	      <p>What do you think is a fair price for the work you did?</p>
-	      <textarea id="fairprice" rows="1" cols="10"></textarea>
+	      <!--<p>What do you think is a fair price for the work you did?</p>
+	      <textarea id="fairprice" rows="1" cols="10"></textarea>-->
 
 	      <p>Gender:
 	        <select id="gender">
@@ -166,13 +169,15 @@
 	      <p>Native Language: <input type="text" id="language"/></p>
 	      <label>(the language(s) spoken at home when you were a child)</label>
 
-	      <p>Did you enjoy the hit?</p>
+				<p>Email: <input type="text" id="email"/></p>
+				<p>Name: <input type="text" id="name"/></p>
+	      <!--<p>Did you enjoy the hit?</p>
 	      <select id="enjoyment">
 	        <label><option value="-1"></option></label>
 	        <label><option value="0">Worse than the Average HIT</option></label>
 	        <label><option value="1" >An Average HIT</option></label>
 	        <label><option value="2">Better than average HIT</option></label>
-	      </select>
+	      </select>-->
 
 	      <p>We would be interested in any comments you have about this experiment. Please type them here:</p>
 	      <textarea id="comments" rows="3" cols="50"></textarea>
