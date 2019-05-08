@@ -173,13 +173,14 @@ function make_slides(f) {
       };
       console.log(data);
       exp.data_trials.push(data);
-      axios.post(exp.backendURL + '/new/videos', data)
-      .then(function(response) {
-        console.log(response);
-      }).catch(function(error) {
-        console.log(error);
-      });
-
+      if (exp.record) {
+        axios.post(exp.backendURL + '/new/videos', data)
+        .then(function(response) {
+          console.log(response);
+        }).catch(function(error) {
+          console.log(error);
+        });
+      }
     }
   });
 ////////////////////////////////////////////////////////////////////////////////
@@ -275,12 +276,14 @@ slides.preference_slide = slide({
         "timestamp": Date.now()
     };
     exp.data_trials.push(data);
-    axios.post(exp.backendURL + '/new/preferences', data)
-    .then(function(response) {
-      console.log(response);
-    }).catch(function(error) {
-      console.log(error);
-    });
+    if (exp.record) {
+      axios.post(exp.backendURL + '/new/preferences', data)
+      .then(function(response) {
+        console.log(response);
+      }).catch(function(error) {
+        console.log(error);
+      });
+    }
   }
 });
 
@@ -321,18 +324,20 @@ slides.preference_slide = slide({
       };
       console.log(exp.data);
       //setTimeout(function() {turk.submit(exp.data);}, 1000);
-      axios.post(exp.backendURL + '/new/users', exp.subj_data)
-      .then(function(response) {
-        console.log(response);
-      }).catch(function(error) {
-        console.log(error);
-      });
-      axios.post(exp.backendURL + '/new/systems', exp.system)
-      .then(function(response) {
-        console.log(response);
-      }).catch(function(error) {
-        console.log(error);
-      });
+      if (exp.record) {
+        axios.post(exp.backendURL + '/new/users', exp.subj_data)
+        .then(function(response) {
+          console.log(response);
+        }).catch(function(error) {
+          console.log(error);
+        });
+        axios.post(exp.backendURL + '/new/systems', exp.system)
+        .then(function(response) {
+          console.log(response);
+        }).catch(function(error) {
+          console.log(error);
+        });
+      }
     }
   });
 
@@ -347,6 +352,7 @@ function init() {
 
   exp.userId = 0; // TODO
   exp.backendURL = 'http://stanford.edu/~ldomine/cgi-bin/twi.cgi';
+  exp.record = false; // whether to send data to backend - for debugging
 
   exp.videos = [
     {

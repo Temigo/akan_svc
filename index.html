@@ -27,8 +27,13 @@
     <!-- <script src="js/local-utils.js"></script> -->
 
     <!--CSS-->
-    <link href="shared/full-projects/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
-    <link href="shared/css/cocolab-style.css" rel="stylesheet" type="text/css"/>
+    <!--<link href="shared/full-projects/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
+    <link href="shared/css/cocolab-style.css" rel="stylesheet" type="text/css"/>-->
+
+		<!-- Semantic UI -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
 		<!-- Video.js -->
 		<link href="https://vjs.zencdn.net/7.5.4/video-js.css" rel="stylesheet"/>
 		<link href="videojs-markers/dist/videojs.markers.css" rel="stylesheet"/>
@@ -45,36 +50,48 @@
 
 </head>
 
-<body onload="init();">
+<body onload="init();" class="ui container">
 	<noscript>This task requires JavaScript.</noscript>
 
-	<div class="slide" id="i0" >
-		<p id="cocolab">Stanford Linguistics</p>
-   		<p id="instruct-text">You will be asked to answer some questions about given sentences. The HIT should take ~2 minutes. Please pay attention.</p>
-   		<button id="start_button" type="button">Start Experiment</button>
+	<div class="slide ui segment" id="i0" >
+		<h3 id="cocolab" class="ui large center aligned header">Stanford Linguistics</h3>
+   		<p id="instruct-text">You will be asked to segment some videos and answer questions about them. The experiment should take ~20 minutes. Please pay attention.</p>
+   		<button id="start_button" type="button" class="ui button fluid primary">Start Experiment</button>
     	<br><br>
     	<i><small><small><strong><br>LEGAL INFORMATION</strong>:<br><br>We invite you to participate in a research study on language production and comprehension.<br>Your experimenter will ask you to do a linguistic task such as reading sentences or words, naming pictures or describing scenes, making up sentences of your own, or participating in a simple language game.<br><br>You will be paid for your participation at the posted rate.<br><br>There are no risks or benefits of any kind involved in this study.<br><br>If you have read this form and have decided to participate in this experiment, please understand your participation is voluntary and you have the right to withdraw your consent or discontinue participation at any time without penalty or loss of benefits to which you are otherwise entitled. You have the right to refuse to do particular tasks. Your individual privacy will be maintained in all published and written data resulting from the study.<br>You may print this form for your records.<br><br>CONTACT INFORMATION:<br>If you have any questions, concerns or complaints about this research study, its procedures, risks and benefits, you should contact the Protocol Director Meghan Sumner at <br>(650)-725-9336<br><br>If you are not satisfied with how this study is being conducted, or if you have any concerns, complaints, or general questions about the research or your rights as a participant, please contact the Stanford Institutional Review Board (IRB) to speak to someone independent of the research team at (650)-723-2480 or toll free at 1-866-680-2906. You can also write to the Stanford IRB, Stanford University, 3000 El Camino Real, Five Palo Alto Square, 4th Floor, Palo Alto, CA 94306 USA.<br><br>If you agree to participate, please proceed to the study tasks.<br><br></small></small></i>
     	<!--Consent form used in Stanford linguistics department and is good for ling245. Otherwise, modified to whatever is required for you given your affiliation.-->
-    </div>
+  </div>
 
-		<div class="slide" id="registration">
-	  		<h3>Registration</h3>
-	  		<p>Email address: <input type="text" id="email" /> </p>
-	  		<button onclick="_s.button()">Continue</button>
+	<!-- <div class="slide ui segment" id="registration">
+  		<h3>Registration</h3>
+  		<p>Email address: <input type="text" id="email" /> </p>
+  		<button onclick="_s.button()">Continue</button>
+	</div> -->
+
+	<div class="ui indicating olive progress">
+		<!-- <span>Progress:</span>
+		<div class="bar-wrapper">
+			<div class="bar" width="0%">
+			</div>
+		</div> -->
+		<div class="bar">
+			<div class="progress"></div>
 		</div>
+		<div class="label">Progress</div>
+	</div>
 
 	<!--Instruction slide-->
-	<div class="slide" id="instructions">
-  		<h3>Instructions</h3>
+	<div class="slide ui segment" id="instructions">
+  		<h3 class="ui large center aligned header">Instructions</h3>
   		<p>You will see N videos. For each video, press the space bar every time that you think
 			an event starts or end. </p>
 			<p>First you will practice on a video to make sure you understand the task.</p>
-  		<button onclick="_s.button()">Continue</button>
+  		<button onclick="_s.button()" class="ui button">Continue</button>
 	</div>
 
 
-	<div class="slide" id="practice">
-  		<h3>Practice video</h3>
+	<div class="slide ui segment" id="practice">
+  		<h3 class="ui large center aligned header">Practice video</h3>
   		<p>Please press the space bar every time that you think
 			an event starts or ends. </p>
 			<video id='practice-video' class='video-js' width='640' height='264'>
@@ -87,8 +104,8 @@
 	</div>
 
 
-	<div class="slide" id="one_slider">
-		<h3>Experiment video</h3>
+	<div class="slide ui segment" id="one_slider">
+		<h3 class="ui large center aligned header">Experiment video</h3>
   	<p>Please press the space bar every time that you think
 		an event starts or ends.</p>
   	<p class="prompt"></p>
@@ -102,12 +119,12 @@
 				<a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
 			</p>
 		</video>
-  	<button onclick="_s.button()">Continue</button>
+  	<button onclick="_s.button()" class="ui button positive">Continue</button>
   	<div class="err">Please adjust the slider before continuing.</div>
 	</div>
 
-	<div class="slide" id="preference_slide">
-		<h3>Preference</h3>
+	<div class="slide ui segment" id="preference_slide">
+		<h3 class="ui large center aligned header">Preference</h3>
   	<p>Please choose your preferred description of the video.</p>
   	<p class="prompt"></p>
  		<!-- <table id="slider_table" class="slider_table">
@@ -125,35 +142,62 @@
 		<label><input type="radio"  name="sentence" value="svc"/><span class="svc-sentence"></span> </label>
 		<label><input type="radio"  name="sentence" value="cc"/><span class="cc-sentence"></span></label>
 		<br/>
-  	<button onclick="_s.button()">Continue</button>
+  	<button onclick="_s.button()" class="ui button positive">Continue</button>
   	<div class="err">Please adjust the slider before continuing.</div>
 	</div>
 
-	<div class="slide"  id="subj_info">
+	<div class="slide ui segment"  id="subj_info">
 	    <div class="long_form">
-	      <div class="subj_info_title">Additional information</div>
+	      <h3 class="ui large center aligned header">Additional information</h3>
 	      <p class="info">Answering these questions is optional, but will help us understand your answers.</p>
-	      <p>Did you read the instructions and do you think you did the HIT correctly?</p>
-	      <label><input type="radio"  name="assess" value="No"/>No</label>
-	      <label><input type="radio"  name="assess" value="Yes"/>Yes</label>
-	      <label><input type="radio"  name="assess" value="Confused"/>I was confused</label>
+				<div class="ui form">
+					<div class="grouped fields">
+			      <label for="assess">Did you read the instructions and do you think you did the experiment correctly?</label>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input type="radio"  name="assess" value="No"/>
+				      	<label>No</label>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input type="radio"  name="assess" value="Yes"/>
+								<label>Yes</label>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input type="radio"  name="assess" value="Confused"/>
+								<label>I was confused</label>
+							</div>
+						</div>
+					</div>
 
-	      <p>Were there any problems or bugs in the experiment?</p>
-	      <textarea id="problems" rows="2" cols="50"></textarea>
+
+				<div class="field">
+					<label>Were there any problems or bugs in the experiment?</label>
+	      	<textarea id="problems" rows="2"></textarea>
+				</div>
 
 	      <!--<p>What do you think is a fair price for the work you did?</p>
 	      <textarea id="fairprice" rows="1" cols="10"></textarea>-->
 
-	      <p>Gender:
-	        <select id="gender">
-	          <label><option value=""/></label>
-	          <label><option value="Male"/>Male</label>
-	          <label><option value="Female"/>Female</label>
-	          <label><option value="Other"/>Other</label>
-	        </select>
-	      </p>
+				<div class="field">
+		      <label>Gender</label>
+					<div class="ui selection dropdown">
+		        <select id="gender">
+		          <label><option value=""/></label>
+		          <label><option value="Male"/>Male</label>
+		          <label><option value="Female"/>Female</label>
+		          <label><option value="Other"/>Other</label>
+		        </select>
+					</div>
+				</div>
 
-	      <p>Age: <input type="text" id="age"/></p>
+				<div class="field">
+	      	<label>Age</label>
+					<input type="text" id="age"/>
+				</div>
 
 	      <p>Level Of Education:
 	        <select id="education">
@@ -166,11 +210,20 @@
 	        </select>
 	      </p>
 
-	      <p>Native Language: <input type="text" id="language"/></p>
-	      <label>(the language(s) spoken at home when you were a child)</label>
+				<div class="field">
+		      <label>Native Language (the language(s) spoken at home when you were a child)</label>
+					<input type="text" id="language"/>
+				</div>
 
-				<p>Email: <input type="text" id="email"/></p>
-				<p>Name: <input type="text" id="name"/></p>
+				<div class="field">
+					<label>Email</label>
+					<input type="text" id="email"/>
+				</div>
+
+				<div class="field">
+					<label>Name</label>
+					<input type="text" id="name"/>
+				</div>
 	      <!--<p>Did you enjoy the hit?</p>
 	      <select id="enjoyment">
 	        <label><option value="-1"></option></label>
@@ -178,27 +231,19 @@
 	        <label><option value="1" >An Average HIT</option></label>
 	        <label><option value="2">Better than average HIT</option></label>
 	      </select>-->
-
-	      <p>We would be interested in any comments you have about this experiment. Please type them here:</p>
-	      <textarea id="comments" rows="3" cols="50"></textarea>
-	      <br/>
-	      <button onclick="_s.submit()">Submit</button>
+				<div class="field">
+		      <label>We would be interested in any comments you have about this experiment. Please type them here:</label>
+		      <textarea id="comments" rows="3"></textarea>
+				</div>
+	      <button onclick="_s.submit()" class="ui button primary">Submit</button>
+				</div>
 	    </div>
 	</div>
 
 
-	<div id="thanks" class="slide js" >
-	    <p  class="big">Thanks for your Time!</p>
+	<div id="thanks" class="slide js ui segment" >
+	    <h3  class="ui large center aligned header">Thanks for your Time!</h3>
 	</div>
-
-
-  	<div class="progress">
-    	<span>Progress:</span>
-    	<div class="bar-wrapper">
-      	<div class="bar" width="0%">
-      	</div>
-    	</div>
-  	</div>
 
 </body>
 </html>
