@@ -97,6 +97,8 @@ function make_slides(f) {
     name : "one_slider",
     present: exp.videos1, //every element in exp.stims is passed to present_handle one by one as 'stim'
     start: function() {
+      $(".question_part").hide();
+      $(".video_part").show();
       this.times = [];
       var player = videojs('experiment-video', {
         controls: true,
@@ -168,7 +170,14 @@ function make_slides(f) {
       $(".err").hide();
       this.stim = stim; // store this information in the slide so you can record it later
       // Display sentence
+      console.log(stim)
       $(".prompt").html(stim.sentence);
+      $("#question1_0").html(stim.question1);
+      $("#question1_1").html(stim.question1_1);
+      $("#question1_2").html(stim.question1_2);
+      $("#question2_0").html(stim.question2);
+      $("#question2_1").html(stim.question2_1);
+      $("#question2_2").html(stim.question2_2);
       // Set src
       this.player.src({src: stim.src, type: 'video/mp4'});
       // Reset markers
@@ -182,12 +191,22 @@ function make_slides(f) {
       // if (exp.sliderPost == null) {
       //   $(".err").show();
       // } else {
+      console.log('button')
+      $(".video_part").show();
+      $(".question_part").hide();
       this.log_responses();
 
       /* use _stream.apply(this); if and only if there is
       "present" data. (and only *after* responses are logged) */
       _stream.apply(this);
       //}
+    },
+
+    question: function() {
+      $(".video_part").hide();
+      $(".question_part").show();
+      console.log('question');
+      // this.button();
     },
 
 
@@ -199,7 +218,11 @@ function make_slides(f) {
           "description": this.stim.sentence,
           "response" : exp.times,
           "duration": (Date.now() - this.startT)/60000,
-          "timestamp": Date.now()
+          "timestamp": Date.now(),
+          "question1": this.stim.question1,
+          "question1_response": $('input[name="question1"]:checked').val(),
+          "question2": this.stim.question2,
+          "question2_response": $('input[name="question2"]:checked').val()
       };
       console.log(data);
       exp.data_trials.push(data);
@@ -387,7 +410,13 @@ function init() {
       src: "data/fufu2.mp4",
       roi: "data/fufu2_roi.mp4",
       svc: "SVC sentence",
-      cc: "CC sentence"
+      cc: "CC sentence",
+      question1: "What happened in the video?",
+      question1_1: "A happened",
+      question1_2: "B happened",
+      question2: "What happened in the video?",
+      question2_1: "A happened",
+      question2_2: "B happened",
     },
     {
       id: 1,
@@ -395,12 +424,21 @@ function init() {
       src: "data/market2.mp4",
       roi: "data/market2_roi.mp4",
       svc: "SVC sentence",
-      cc: "CC sentence"
+      cc: "CC sentence",
+      question1: "What happened in the video?",
+      question1_1: "A happened",
+      question1_2: "B happened",
+      question2: "What happened in the video?",
+      question2_1: "A happened",
+      question2_2: "B happened",
     }
   ];
   // Divide into two lists of videos for the 2 parts of the experiment
   exp.videos1 = exp.videos.map(function(video) {
-    return {id: video.id, sentence: video.sentence, src: video.src};
+    return {id: video.id, sentence: video.sentence, src: video.src,
+      question1: video.question1, question1_1: video.question1_1, question1_2: video.question1_2,
+      question2: video.question2, question2_1: video.question2_1, question2_2: video.question2_2,
+    };
   });
   exp.videos2 = exp.videos.map(function(video) {
     return {id:video.id, roi: video.roi, svc: video.svc, cc: video.cc};

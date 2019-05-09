@@ -113,23 +113,64 @@
 
 	<div class="slide ui clearing segment" id="one_slider">
 		<h3 class="ui huge center aligned header">Experiment video</h3>
-  	<p>Please press the space bar every time that you think
-		an event starts or ends.</p>
-  	<p class="prompt ui large center aligned header"></p>
- 		<!-- <table id="slider_table" class="slider_table">
-   		<tr><td class="left">unnatural</td><td class="right">natural</td></tr>
-   		<tr><td colspan="2"><div id="single_slider" class="slider"></div></td></tr>
- 		</table> -->
-		<video id='experiment-video' class='video-js' width='640' height='264'>
-			<p class='vjs-no-js'>
-				To view this video please enable JavaScript, and consider upgrading to a web browser that
-				<a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
-			</p>
-		</video>
-  	<button onclick="_s.button()" class="next_video ui right floated right labeled icon button disabled">
-			<i class="right arrow icon"></i>
-			Continue
-		</button>
+		<div class="video_part">
+	  	<p>Please press the space bar every time that you think
+			an event starts or ends.</p>
+	  	<p class="prompt ui large center aligned header"></p>
+	 		<!-- <table id="slider_table" class="slider_table">
+	   		<tr><td class="left">unnatural</td><td class="right">natural</td></tr>
+	   		<tr><td colspan="2"><div id="single_slider" class="slider"></div></td></tr>
+	 		</table> -->
+			<video id='experiment-video' class='video-js' width='640' height='264'>
+				<p class='vjs-no-js'>
+					To view this video please enable JavaScript, and consider upgrading to a web browser that
+					<a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
+				</p>
+			</video>
+	  	<button onclick="_s.question()" class="next_video ui right floated right labeled icon button disabled">
+				<i class="right arrow icon"></i>
+				Continue
+			</button>
+		</div>
+		<div class="question_part">
+			<p>[Filler question]</p>
+			<div class="ui form">
+				<div class="grouped fields">
+					1. <label for="question1" id="question1_0"></label>
+					<div class="field">
+						<div class="ui radio checkbox">
+							<input type="radio"  name="question1" value="1"/>
+							<label id="question1_1"></label>
+						</div>
+					</div>
+					<div class="field">
+						<div class="ui radio checkbox">
+							<input type="radio"  name="question1" value="2"/>
+							<label id="question1_2"></label>
+						</div>
+					</div>
+				</div>
+				<div class="grouped fields">
+					2. <label for="question2" id="question2_0"></label>
+					<div class="field">
+						<div class="ui radio checkbox">
+							<input type="radio"  name="question2" value="1"/>
+							<label id="question2_1"></label>
+						</div>
+					</div>
+					<div class="field">
+						<div class="ui radio checkbox">
+							<input type="radio"  name="question2" value="2"/>
+							<label id="question2_2"></label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<button onclick="_s.button()" class="next_video ui right floated right labeled icon button disabled">
+				<i class="right arrow icon"></i>
+				Continue
+			</button>
+		</div>
   	<div class="err">Please adjust the slider before continuing.</div>
 	</div>
 
