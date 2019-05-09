@@ -54,6 +54,13 @@ function make_slides(f) {
       // player.on("ready", function() {
       //   console.log('ready')
       // });
+      // player.on("click", function(ev) {
+      //   console.log('click');
+      //
+      // })
+      player.on("pause", function() {
+        player.play();
+      });
       // Disable button until video has finished playing
       if (exp.record) {
         player.on("ended", function() {
@@ -87,6 +94,12 @@ function make_slides(f) {
               console.log(player.markers.getMarkers());
           }
       }
+      var hammer = new Hammer(document.getElementById('practice-video'));
+      hammer.on('tap', function(ev) {
+        ev.preventDefault();
+        player.markers.add([{ time: player.currentTime(), text: 'hi'}]);
+        console.log(player.markers.getMarkers());
+      });
     },
     button : function() {
       exp.go(); //use exp.go() if and only if there is no "present" data.
