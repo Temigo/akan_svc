@@ -41,16 +41,14 @@ function make_slides(f) {
           ]
         }
       }, function() {
-        console.log('hi2')
         var player = this;
-        player.src({src: 'data/fufu2.mp4', type: 'video/mp4'});
+        player.src({src: 'data/market2.mp4', type: 'video/mp4'});
         //Delay to start video
-        setTimeout(function() {
-          player.play();
-        }, 100);
+        // setTimeout(function() {
+        //   player.play();
+        // }, 100);
         player.controlBar.progressControl.disable();
-
-        //player.play();
+        player.play();
       });
 
       // player.on("ready", function() {
@@ -147,10 +145,12 @@ function make_slides(f) {
       if (exp.record) {
         this.player.on("ended", function() {
           $(".next_video").removeClass("disabled");
+          $(".next_video").addClass("positive");
         });
       }
       else {
         $(".next_video").removeClass("disabled");
+        $(".next_video").addClass("positive");
       }
 
       // Event on space bar key press
@@ -254,10 +254,12 @@ slides.preference_slide = slide({
     if (exp.record) {
       this.player.on("ended", function() {
         $(".next_video").removeClass("disabled");
+        $(".next_video").addClass("positive");
       });
     }
     else {
       $(".next_video").removeClass("disabled");
+      $(".next_video").addClass("positive");
     }
   },
 
