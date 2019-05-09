@@ -6,6 +6,9 @@ function make_slides(f) {
     start: function() {
       exp.startT = Date.now();
       $("#myProgressBar").hide();
+    },
+    button: function() {
+      window.scrollTo(0, 0);
     }
   });
 
@@ -13,6 +16,7 @@ function make_slides(f) {
     name : "instructions",
     button : function() {
       $("#myProgressBar").show();
+      window.scrollTo(0, 0);
       exp.go(); //use exp.go() if and only if there is no "present" data.
     }
   });
@@ -20,7 +24,6 @@ function make_slides(f) {
   slides.practice = slide({
     name : "practice",
     start: function() {
-      console.log('hi')
       var player = videojs('practice-video', {
         controls: true,
         autoplay: false,
@@ -51,13 +54,6 @@ function make_slides(f) {
         player.play();
       });
 
-      // player.on("ready", function() {
-      //   console.log('ready')
-      // });
-      // player.on("click", function(ev) {
-      //   console.log('click');
-      //
-      // })
       player.on("pause", function() {
         player.play();
       });
@@ -94,6 +90,7 @@ function make_slides(f) {
               console.log(player.markers.getMarkers());
           }
       }
+      // Event on tap on video
       var hammer = new Hammer(document.getElementById('practice-video'));
       hammer.on('tap', function(ev) {
         ev.preventDefault();
@@ -102,6 +99,7 @@ function make_slides(f) {
       });
     },
     button : function() {
+      window.scrollTo(0, 0);
       exp.go(); //use exp.go() if and only if there is no "present" data.
     }
   });
@@ -177,6 +175,13 @@ function make_slides(f) {
           exp.times.push(time);
         }
       }
+      // Event on tap on video
+      var hammer = new Hammer(document.getElementById('practice-video'));
+      hammer.on('tap', function(ev) {
+        ev.preventDefault();
+        player.markers.add([{ time: player.currentTime(), text: 'hi'}]);
+        console.log(player.markers.getMarkers());
+      });
     },
 
     present_handle : function(stim) {
@@ -204,7 +209,7 @@ function make_slides(f) {
       // if (exp.sliderPost == null) {
       //   $(".err").show();
       // } else {
-      console.log('button')
+      window.scrollTo(0, 0);
       $(".video_part").show();
       $(".question_part").hide();
       this.log_responses();
@@ -216,6 +221,7 @@ function make_slides(f) {
     },
 
     question: function() {
+      window.scrollTo(0, 0);
       $(".video_part").hide();
       $(".question_part").show();
       console.log('question');
@@ -318,6 +324,7 @@ slides.preference_slide = slide({
     // if (exp.sliderPost == null) {
     //   $(".err").show();
     // } else {
+    window.scrollTo(0, 0);
     this.log_responses();
 
     /* use _stream.apply(this); if and only if there is
@@ -369,6 +376,7 @@ slides.preference_slide = slide({
         email: $("#email").val(),
         name: $("#name").val(),
       };
+      window.scrollTo(0, 0);
       exp.go(); //use exp.go() if and only if there is no "present" data.
     }
   });
