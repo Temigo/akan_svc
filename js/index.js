@@ -4,13 +4,15 @@ function make_slides(f) {
   slides.i0 = slide({
     name : "i0",
     start: function() {
-    exp.startT = Date.now();
+      exp.startT = Date.now();
+      $("#myProgressBar").hide();
     }
   });
 
   slides.instructions = slide({
     name : "instructions",
     button : function() {
+      $("#myProgressBar").show();
       exp.go(); //use exp.go() if and only if there is no "present" data.
     }
   });
@@ -18,6 +20,7 @@ function make_slides(f) {
   slides.practice = slide({
     name : "practice",
     start: function() {
+      console.log('hi')
       var player = videojs('practice-video', {
         controls: true,
         autoplay: false,
@@ -38,34 +41,45 @@ function make_slides(f) {
           ]
         }
       }, function() {
+        console.log('hi2')
         var player = this;
         player.src({src: 'data/fufu2.mp4', type: 'video/mp4'});
-        // Delay to start video
+        //Delay to start video
         setTimeout(function() {
           player.play();
-        }, 0);
+        }, 100);
         player.controlBar.progressControl.disable();
-        // var currentTime = 0;
-        // player.on("seeking", function(event) {
-        //   player.currentTime(currentTime);
-        // });
-        // player.on("seeked", function(event) {
-        //   player.currentTime(currentTime);
-        // });
-        //
-        // setInterval(function () {
-        //   if (!player.paused()) {
-        //     currentTime = player.currentTime();
-        //   }
-        // }, 1000);
+
+        //player.play();
       });
+
+      // player.on("ready", function() {
+      //   console.log('ready')
+      // });
+      // Disable button until video has finished playing
+      if (exp.record) {
+        player.on("ended", function() {
+          $(".next_video").removeClass("disabled");
+          $(".next_video").addClass("positive");
+        });
+      }
+      else {
+        $(".next_video").removeClass("disabled");
+        $(".next_video").addClass("positive");
+      }
 
       player.markers({
         markers: [],
         markerStyle: {
           'width': '4px',
           'background-color': 'red'
-        }
+        },
+        markerTip: {
+          display: false
+        },
+        onMarkerClick: function(marker) {
+          return false;
+        },
       });
 
       // Event on space bar key press
@@ -118,17 +132,33 @@ function make_slides(f) {
         markerStyle: {
           'width': '4px',
           'background-color': 'red'
-        }
+        },
+        markerTip: {
+          display: false
+        },
+        onMarkerClick: function(marker) {
+          return false;
+        },
       });
       this.player = player;
       this.startT = Date.now();
+
+      // Disable button until video has finished playing
+      if (exp.record) {
+        this.player.on("ended", function() {
+          $(".next_video").removeClass("disabled");
+        });
+      }
+      else {
+        $(".next_video").removeClass("disabled");
+      }
 
       // Event on space bar key press
       document.body.onkeyup = function(e){
         if(e.keyCode == 32){
           e.preventDefault();
           var time = player.currentTime();
-          player.markers.add([{ time: time, text: 'hi'}]);
+          player.markers.add([{ time: time /*, text: 'hi'*/}]);
           exp.times.push(time);
         }
       }
@@ -216,25 +246,19 @@ slides.preference_slide = slide({
       // }, 0);
       player.controlBar.progressControl.disable();
     });
-    // player.markers({
-    //   markers: [],
-    //   markerStyle: {
-    //     'width': '4px',
-    //     'background-color': 'red'
-    //   }
-    // });
+
     this.player = player;
     this.startT = Date.now();
 
-    // Event on space bar key press
-    // document.body.onkeyup = function(e){
-    //   if(e.keyCode == 32){
-    //     e.preventDefault();
-    //     var time = player.currentTime();
-    //     player.markers.add([{ time: time, text: 'hi'}]);
-    //     exp.times.push(time);
-    //   }
-    // }
+    // Disable button until video has finished playing
+    if (exp.record) {
+      this.player.on("ended", function() {
+        $(".next_video").removeClass("disabled");
+      });
+    }
+    else {
+      $(".next_video").removeClass("disabled");
+    }
   },
 
   present_handle : function(stim) {
@@ -395,8 +419,8 @@ function init() {
   exp.structure=[
     "i0",
     //"registration",
-    //"instructions",
-    //"practice",
+    "instructions",
+    "practice",
     "one_slider",
     "preference_slide",
     'subj_info',

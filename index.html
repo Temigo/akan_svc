@@ -68,7 +68,7 @@
   		<button onclick="_s.button()">Continue</button>
 	</div> -->
 
-	<div class="ui indicating olive progress">
+	<div id="myProgressBar" class="ui indicating olive progress">
 		<!-- <span>Progress:</span>
 		<div class="bar-wrapper">
 			<div class="bar" width="0%">
@@ -81,16 +81,19 @@
 	</div>
 
 	<!--Instruction slide-->
-	<div class="slide ui segment" id="instructions">
+	<div class="slide ui clearing segment" id="instructions">
   		<h3 class="ui large center aligned header">Instructions</h3>
-  		<p>You will see N videos. For each video, press the space bar every time that you think
-			an event starts or end. </p>
+  		<p>You will see 20 videos. For each video, press the space bar every time that you think
+			an event starts or end. After each video, you will be asked two questions about it.</p>
 			<p>First you will practice on a video to make sure you understand the task.</p>
-  		<button onclick="_s.button()" class="ui button">Continue</button>
+  		<button onclick="_s.button()" class="ui primary right floated right labeled icon button">
+				<i class="right arrow icon"></i>
+				Continue
+			</button>
 	</div>
 
 
-	<div class="slide ui segment" id="practice">
+	<div class="slide ui clearing segment" id="practice">
   		<h3 class="ui large center aligned header">Practice video</h3>
   		<p>Please press the space bar every time that you think
 			an event starts or ends. </p>
@@ -100,15 +103,18 @@
 					<a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
 				</p>
 			</video>
-  		<button onclick="_s.button()">Continue</button>
+  		<button onclick="_s.button()" class="next_video ui right floated right labeled icon button disabled">
+				<i class="right arrow icon"></i>
+				Continue
+			</button>
 	</div>
 
 
-	<div class="slide ui segment" id="one_slider">
-		<h3 class="ui large center aligned header">Experiment video</h3>
+	<div class="slide ui clearing segment" id="one_slider">
+		<h3 class="ui huge center aligned header">Experiment video</h3>
   	<p>Please press the space bar every time that you think
 		an event starts or ends.</p>
-  	<p class="prompt"></p>
+  	<p class="prompt ui large center aligned header"></p>
  		<!-- <table id="slider_table" class="slider_table">
    		<tr><td class="left">unnatural</td><td class="right">natural</td></tr>
    		<tr><td colspan="2"><div id="single_slider" class="slider"></div></td></tr>
@@ -119,14 +125,15 @@
 				<a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
 			</p>
 		</video>
-  	<button onclick="_s.button()" class="ui button positive">Continue</button>
+  	<button onclick="_s.button()" class="next_video ui right floated right labeled icon button positive disabled">
+			<i class="right arrow icon"></i>
+			Continue
+		</button>
   	<div class="err">Please adjust the slider before continuing.</div>
 	</div>
 
-	<div class="slide ui segment" id="preference_slide">
+	<div class="slide ui clearing segment" id="preference_slide">
 		<h3 class="ui large center aligned header">Preference</h3>
-  	<p>Please choose your preferred description of the video.</p>
-  	<p class="prompt"></p>
  		<!-- <table id="slider_table" class="slider_table">
    		<tr><td class="left">unnatural</td><td class="right">natural</td></tr>
    		<tr><td colspan="2"><div id="single_slider" class="slider"></div></td></tr>
@@ -138,19 +145,83 @@
 				<a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
 			</p>
 		</video>
-
-		<label><input type="radio"  name="sentence" value="svc"/><span class="svc-sentence"></span> </label>
-		<label><input type="radio"  name="sentence" value="cc"/><span class="cc-sentence"></span></label>
-		<br/>
-  	<button onclick="_s.button()" class="ui button positive">Continue</button>
-  	<div class="err">Please adjust the slider before continuing.</div>
+		<div class="ui text container">
+			<div class="ui massive form">
+				<div class="grouped required fields">
+					<label>Please choose your preferred description of the video.</label>
+					<div class="field">
+						<div class="ui radio checkbox">
+							<input type="radio"  name="sentence" value="svc"/>
+							<label><span class="svc-sentence"></span> </label>
+						</div>
+					</div>
+					<div class="field">
+						<div class="ui radio checkbox">
+							<input type="radio"  name="sentence" value="cc"/>
+							<label><span class="cc-sentence"></span></label>
+						</div>
+					</div>
+				</div>
+		  	<button onclick="_s.button()" class="next_video ui right floated right labeled icon button positive disabled">
+					<i class="right arrow icon"></i>
+					Continue
+				</button>
+			</div>
+		</div>
+  	<!-- <div class="err">Please adjust the slider before continuing.</div> -->
 	</div>
 
-	<div class="slide ui segment"  id="subj_info">
+	<div class="slide ui clearing segment"  id="subj_info">
 	    <div class="long_form">
 	      <h3 class="ui large center aligned header">Additional information</h3>
 	      <p class="info">Answering these questions is optional, but will help us understand your answers.</p>
 				<div class="ui form">
+					<div class="fields">
+						<div class="field">
+							<label>Email</label>
+							<input type="text" id="email"/>
+						</div>
+
+						<div class="field">
+							<label>Name</label>
+							<input type="text" id="name"/>
+						</div>
+
+						<div class="field">
+				      <label>Native Language (the language(s) spoken at home when you were a child)</label>
+							<input type="text" id="language"/>
+						</div>
+					</div>
+
+					<div class="three fields">
+						<div class="field">
+				      <label>Gender</label>
+			        <select id="gender" class="ui dropdown">
+			          <option value=""/></option>
+			          <option value="Male"/>Male</option>
+			          <option value="Female"/>Female</option>
+			          <option value="Other"/>Other</option>
+			        </select>
+						</div>
+
+						<div class="field">
+			      	<label>Age</label>
+							<input type="text" id="age"/>
+						</div>
+
+						<div class="field">
+			      	<label>Level Of Education</label>
+			        <select id="education" class="ui dropdown">
+			          <option value="-1"/></option>
+			          <option value="0"/>Some High School</option>
+			          <option value="1"/>Graduated High School</option>
+			          <option value="2"/>Some College</option>
+			          <option value="3"/>Graduated College</option>
+			          <option value="4"/>Hold a higher degree</option>
+			        </select>
+			      </div>
+					</div>
+
 					<div class="grouped fields">
 			      <label for="assess">Did you read the instructions and do you think you did the experiment correctly?</label>
 						<div class="field">
@@ -176,54 +247,12 @@
 
 				<div class="field">
 					<label>Were there any problems or bugs in the experiment?</label>
-	      	<textarea id="problems" rows="2"></textarea>
+	      	<textarea id="problems" rows="3"></textarea>
 				</div>
 
 	      <!--<p>What do you think is a fair price for the work you did?</p>
 	      <textarea id="fairprice" rows="1" cols="10"></textarea>-->
 
-				<div class="field">
-		      <label>Gender</label>
-					<div class="ui selection dropdown">
-		        <select id="gender">
-		          <label><option value=""/></label>
-		          <label><option value="Male"/>Male</label>
-		          <label><option value="Female"/>Female</label>
-		          <label><option value="Other"/>Other</label>
-		        </select>
-					</div>
-				</div>
-
-				<div class="field">
-	      	<label>Age</label>
-					<input type="text" id="age"/>
-				</div>
-
-	      <p>Level Of Education:
-	        <select id="education">
-	          <label><option value="-1"/></label>
-	          <label><option value="0"/>Some High School</label>
-	          <label><option value="1"/>Graduated High School</label>
-	          <label><option value="2"/>Some College</label>
-	          <label><option value="3"/>Graduated College</label>
-	          <label><option value="4"/>Hold a higher degree</label>
-	        </select>
-	      </p>
-
-				<div class="field">
-		      <label>Native Language (the language(s) spoken at home when you were a child)</label>
-					<input type="text" id="language"/>
-				</div>
-
-				<div class="field">
-					<label>Email</label>
-					<input type="text" id="email"/>
-				</div>
-
-				<div class="field">
-					<label>Name</label>
-					<input type="text" id="name"/>
-				</div>
 	      <!--<p>Did you enjoy the hit?</p>
 	      <select id="enjoyment">
 	        <label><option value="-1"></option></label>
@@ -235,14 +264,15 @@
 		      <label>We would be interested in any comments you have about this experiment. Please type them here:</label>
 		      <textarea id="comments" rows="3"></textarea>
 				</div>
-	      <button onclick="_s.submit()" class="ui button primary">Submit</button>
+	      <button onclick="_s.submit()" class="ui fluid button primary">Submit</button>
 				</div>
 	    </div>
 	</div>
 
 
-	<div id="thanks" class="slide js ui segment" >
-	    <h3  class="ui large center aligned header">Thanks for your Time!</h3>
+	<div id="thanks" class="slide js ui clearing segment" >
+	    <h3  class="ui huge center aligned header">Thank you for your Time!</h3>
+			<h5 class="ui big center aligned header">If you have any questions, please email ldomine@stanford.edu.</h5>
 	</div>
 
 </body>
