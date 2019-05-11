@@ -41,8 +41,6 @@
 		<script src='https://vjs.zencdn.net/7.5.4/video.js'></script>
 		<script src='videojs-markers/dist/videojs-markers.js'></script>
 
-    <link href="css/local-style.css" rel="stylesheet" type="text/css"/>
-
     <!-- experiment file -->
     <script src="js/index.js"></script>
 
@@ -50,7 +48,7 @@
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 		<script src="js/hammer.min.js"></script>
-
+		<link href="css/local-style.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body onload="init();" class="ui container">
@@ -59,7 +57,12 @@
 	<div class="slide ui segment" id="i0" >
 		<div class="ui text container">
 			<h3 id="cocolab" class="ui large center aligned header">Stanford Psycholinguistics Experiment on Akan Language</h3>
-			<p >You will be asked to segment some videos and answer questions about them. The experiment should take ~20 minutes. Please pay attention.</p>
+			<!-- <p>Thank you for taking the time to participate in this experiment!</p>
+			<p >You will be asked to divide video clips and answer questions about them.</p>
+			<p>The experiment should take ~20 minutes. Please pay attention.</p> -->
+			<p>Meda mo nyinaa ase sɛ moaseɛ moadaagyeɛ wɔ sɛ dwumadie yi ho.</p>
+			<p>Saa sini yia edidisoɔ yi yɛ sini a mo bɛhwɛ. Sɛ mo hwɛ wie a, mo bɛyi nsɛm bisa bi ano.</p>
+			<p>Mo bɛhia sima bɛyɛ aduonu wɔ saa dwumadie yi ho. Me pa mo kyɛw pii, ɛyɛ a nya adaagye soronko ma saa dwumadie yi.</p>
 
 			<h4 class="ui center aligned header">LEGAL INFORMATION</h4>
     	<p><i>
@@ -75,7 +78,7 @@
 				If you are not satisfied with how this study is being conducted, or if you have any concerns, complaints, or general questions about the research or your rights as a participant, please contact the Stanford Institutional Review Board (IRB) to speak to someone independent of the research team at (650)-723-2480 or toll free at 1-866-680-2906. You can also write to the Stanford IRB, Stanford University, 3000 El Camino Real, Five Palo Alto Square, 4th Floor, Palo Alto, CA 94306 USA.<br><br>If you agree to participate, please proceed to the study tasks.<br><br></small></small></i>
 			</i></p>
 		</div>
-		<button id="start_button" type="button" onclick="_s.button()" class="ui button fluid primary">Start Experiment</button>
+		<button id="start_button" type="button" onclick="_s.button()" class="ui button fluid primary">Hye aseɛ firi ha!</button>
 		<!--Consent form used in Stanford linguistics department and is good for ling245. Otherwise, modified to whatever is required for you given your affiliation.-->
   </div>
 
@@ -94,7 +97,8 @@
 		<div class="bar">
 			<div class="progress"></div>
 		</div>
-		<div class="label">Progress</div>
+		<!-- <div class="label">Progress</div> -->
+		<div class="label">Wo mmɔdenmmɔ gyinapɛn</div>
 	</div>
 
 	<!--Instruction slide-->
@@ -102,16 +106,21 @@
 		<div class="ui text container">
   		<h3 class="ui large center aligned header">Instructions</h3>
 			<h3 class="ui big center aligned header">Read carefully!</h3>
-  		<p>You will see 20 videos. For each video, you will <br/><br/>
-				1. Read a sentence describing the video. <br/>
+  		<p>You will see 20 short video clips. For each video, you will <br/><br/>
+				<!-- 1. Read a sentence describing the video. <br/>
 				2. Watch the video and divide it into events.<br/>
 				<b>Press the space bar OR tap on the video
 				every time that you think an event starts or end.</b> <br/><br/>
-				You will then be asked 2 questions about the sentence and the video.</p>
-			<p>First you will practice on a video to make sure you understand the task.</p>
+				You will then be asked 2 questions about the sentence and the video.</p> -->
+				1. Kenkan nɔkasamu yi a ɛkyere saa sini yi suban. Sɛ wo kenkan wie a hwɛ saa sini yi a edisoɔ no.<br/>
+				2. Kyerɛ subankuo ahodoɔ a ɛwɔ saa sini yi mu. (Watch the video and divide it into events.)<br/>
+				<b>Press the space bar OR tap on the video
+				every time that you think an event starts or end.</b> <br/><br/>
+				3. Yi nsɛm bisa mienu a ɛfa ɔkasamu a wo kenkan yɛ a ɛfa sini yi suban no ano.</p>
+			<!-- <p><i>First you will practice on a video to make sure you understand the task.</i></p> -->
   		<button onclick="_s.button()" class="ui primary right floated right labeled icon button">
 				<i class="right arrow icon"></i>
-				Continue
+				Toaso firi ha!
 			</button>
 		</div>
 	</div>
@@ -119,15 +128,18 @@
 
 	<div class="slide ui clearing segment" id="practice">
 			<div class="ui text container">
-	  		<h3 class="ui large center aligned header">Practice video</h3>
+	  		<h3 class="ui large center aligned header">Bɔ w'ani akonhoma - Practice video</h3>
+				<!-- <p><b>Let us make sure you understand the task! We ask you to divide the video into events or actions.
+					The events might be big or small. There is no right or wrong way of dividing up the video.</b></b> -->
+				<p><b>This is a trial video for you to practice the segmentation task.</b></p>
 				<p>Reminder: <br/>
-					1. Read the sentence describing the video.<br/>
-					2. Watch the video and divide it into events.<br/>
+					1. Kenkan nɔkasamu yi a ɛkyere saa sini yi suban. Sɛ wo kenkan wie a hwɛ saa sini yi a edisoɔ no.<br/>
+					2. Kyerɛ subankuo ahodoɔ a ɛwɔ saa sini yi mu. (Watch the video and divide it into events.)<br/>
 				</p>
 	  		<p><b>Please press the space bar OR tap on the video every time that you think
-				an event starts or ends. </b></p>
+				an event <i>starts</i> or <i>ends</i>. </b></p>
 			</div>
-			<video id='practice-video' class='video-js' width='640' height='264'>
+			<video id='practice-video' muted class='video-js' width='426' height='240'>
 				<p class='vjs-no-js'>
 					To view this video please enable JavaScript, and consider upgrading to a web browser that
 					<a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
@@ -135,22 +147,28 @@
 			</video>
   		<button onclick="_s.button()" class="next_video ui right floated right labeled icon button disabled">
 				<i class="right arrow icon"></i>
-				Continue
+				Toaso firi ha!
 			</button>
 	</div>
 
 
 	<div class="slide ui clearing segment" id="one_slider">
-		<h3 class="ui huge center aligned header">Experiment video</h3>
+		<h3 class="ui huge center aligned header" id="video_title"></h3>
 		<div class="video_part">
-	  	<p>Please press the space bar every time that you think
-			an event starts or ends.</p>
+			<div class="ui text container">
+				<p>Reminder: <br/>
+					1. Kenkan nɔkasamu yi a ɛkyere saa sini yi suban. Sɛ wo kenkan wie a hwɛ saa sini yi a edisoɔ no.<br/>
+					2. Kyerɛ subankuo ahodoɔ a ɛwɔ saa sini yi mu. (Watch the video and divide it into events.)<br/>
+				</p>
+				<p><b>Please press the space bar OR tap on the video every time that you think
+				an event starts or ends. </b></p>
+			</div>
 	  	<p class="prompt ui large center aligned header"></p>
 	 		<!-- <table id="slider_table" class="slider_table">
 	   		<tr><td class="left">unnatural</td><td class="right">natural</td></tr>
 	   		<tr><td colspan="2"><div id="single_slider" class="slider"></div></td></tr>
 	 		</table> -->
-			<video id='experiment-video' class='video-js' width='640' height='264'>
+			<video id='experiment-video' muted class='video-js' width='426' height='240'>
 				<p class='vjs-no-js'>
 					To view this video please enable JavaScript, and consider upgrading to a web browser that
 					<a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
@@ -158,13 +176,14 @@
 			</video>
 	  	<button onclick="_s.question()" class="next_video ui right floated right labeled icon button disabled">
 				<i class="right arrow icon"></i>
-				Continue
+				Toaso firi ha!
 			</button>
 		</div>
-		<div class="question_part">
-			<p>[Filler question]</p>
-			<div class="ui form">
-				<div class="grouped fields">
+		<div class="question_part ui text container">
+			<!-- <p>Please answer the 2 following questions about the sentence and video you just watched:</p> -->
+			<p>Yi nsɛm bisa mienu a ɛfa ɔkasamu a wo kenkan yɛ a ɛfa sini yi suban no ano:</p>
+			<div class="ui big form">
+				<div class="grouped required fields">
 					1. <label for="question1" id="question1_0"></label>
 					<div class="field">
 						<div class="ui radio checkbox">
@@ -179,7 +198,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="grouped fields">
+				<div class="grouped required fields">
 					2. <label for="question2" id="question2_0"></label>
 					<div class="field">
 						<div class="ui radio checkbox">
@@ -197,20 +216,20 @@
 			</div>
 			<button onclick="_s.button()" class="next_video ui right floated right labeled icon button disabled">
 				<i class="right arrow icon"></i>
-				Continue
+				Toaso firi ha!
 			</button>
 		</div>
   	<div class="err">Please adjust the slider before continuing.</div>
 	</div>
 
 	<div class="slide ui clearing segment" id="preference_slide">
-		<h3 class="ui large center aligned header">Preference</h3>
+		<h3 class="ui large center aligned header">Yi deɛ wo pɛ?</h3>
  		<!-- <table id="slider_table" class="slider_table">
    		<tr><td class="left">unnatural</td><td class="right">natural</td></tr>
    		<tr><td colspan="2"><div id="single_slider" class="slider"></div></td></tr>
  		</table> -->
 
-		<video id='preference-video' class='video-js' width='640' height='264'>
+		<video id='preference-video' muted class='video-js' width='426' height='240'>
 			<p class='vjs-no-js'>
 				To view this video please enable JavaScript, and consider upgrading to a web browser that
 				<a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
@@ -219,7 +238,8 @@
 		<div class="ui text container">
 			<div class="ui massive form">
 				<div class="grouped required fields">
-					<label>Please choose your preferred description of the video.</label>
+					<!-- <label>Please choose your preferred description of this video:</label> -->
+					<label>Ɔkasamuu a edisoɔ yi mu deɛ hen na ɛyɛ wo dɛ a nte nteaseɛ so tɔ asomu wɔ saa sini yi a woahwɛ yi:</label>
 					<div class="field">
 						<div class="ui radio checkbox">
 							<input type="radio"  name="sentence" value="svc"/>
@@ -235,7 +255,7 @@
 				</div>
 		  	<button onclick="_s.button()" class="next_video ui right floated right labeled icon button disabled">
 					<i class="right arrow icon"></i>
-					Continue
+					Toaso firi ha!
 				</button>
 			</div>
 		</div>
@@ -335,14 +355,15 @@
 		      <label>We would be interested in any comments you have about this experiment. Please type them here:</label>
 		      <textarea id="comments" rows="3"></textarea>
 				</div>
-	      <button onclick="_s.submit()" class="ui fluid button primary">Submit</button>
+	      <button onclick="_s.submit()" class="ui fluid button primary">Toaso firi ha!</button>
 				</div>
 	    </div>
 	</div>
 
 
 	<div id="thanks" class="slide js ui clearing segment" >
-	    <h3  class="ui huge center aligned header">Thank you for your Time!</h3>
+	    <!-- <h3  class="ui huge center aligned header">Thank you for your Time!</h3> -->
+			<h3  class="ui huge center aligned header">Meda wo ase wɔ mmerɛ a waahwire wɔ saa dwumadie yi ho!</h3>
 			<h5 class="ui big center aligned header">If you have any questions, please email ldomine@stanford.edu.</h5>
 	</div>
 

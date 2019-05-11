@@ -29,12 +29,13 @@ function make_slides(f) {
         autoplay: false,
         preload: 'auto',
         inactivityTimeout: 0, // keep control bar visible
-        fluid: true, // center and adapt to video ratio
+        //fluid: true, // center and adapt to video ratio
+        aspectRatio: "16:9",
         controlBar: {
           children: [
             //"playToggle", // remove play button
-            "volumePanel",
-            "volumeMenuButton",
+            //"volumePanel",
+            //"volumeMenuButton",
             "durationDisplay",
             "timeDivider",
             "currentTimeDisplay",
@@ -45,7 +46,7 @@ function make_slides(f) {
         }
       }, function() {
         var player = this;
-        player.src({src: 'data/market2.mp4', type: 'video/mp4'});
+        player.src({src: 'data/training.mp4', type: 'video/mp4', width: 426, height: 240});
         //Delay to start video
         // setTimeout(function() {
         //   player.play();
@@ -54,9 +55,9 @@ function make_slides(f) {
         player.play();
       });
 
-      player.on("pause", function() {
-        player.play();
-      });
+      // player.on("pause", function() {
+      //   player.play();
+      // });
       // Disable button until video has finished playing
       if (exp.record) {
         player.on("ended", function() {
@@ -96,6 +97,7 @@ function make_slides(f) {
         ev.preventDefault();
         player.markers.add([{ time: player.currentTime(), text: 'hi'}]);
         console.log(player.markers.getMarkers());
+        player.play();
       });
     },
     button : function() {
@@ -120,8 +122,8 @@ function make_slides(f) {
         controlBar: {
           children: [
             //"playToggle", // remove play button
-            "volumePanel",
-            "volumeMenuButton",
+            //"volumePanel",
+            //"volumeMenuButton",
             "durationDisplay",
             "timeDivider",
             "currentTimeDisplay",
@@ -189,20 +191,23 @@ function make_slides(f) {
       this.stim = stim; // store this information in the slide so you can record it later
       // Display sentence
       console.log(stim)
-      $(".prompt").html(stim.sentence);
+      //$(".prompt").html(stim.sentence);
       $("#question1_0").html(stim.question1);
       $("#question1_1").html(stim.question1_1);
       $("#question1_2").html(stim.question1_2);
       $("#question2_0").html(stim.question2);
       $("#question2_1").html(stim.question2_1);
       $("#question2_2").html(stim.question2_2);
-      // Set src
-      this.player.src({src: stim.src, type: 'video/mp4'});
-      // Reset markers
-      this.player.markers.reset([]);
-      exp.times = [];
-      // Start playing
-      this.player.play();
+      $("#video_title").html(stim.title);
+      //setTimeout(function() {
+        // Set src
+        this.player.src({src: stim.src, type: 'video/mp4'});
+        // Reset markers
+        this.player.markers.reset([]);
+        exp.times = [];
+        // Start playing
+        this.player.play();
+      //}, 8000);
     },
 
     button : function() {
@@ -243,6 +248,8 @@ function make_slides(f) {
           "question2": this.stim.question2,
           "question2_response": $('input[name="question2"]:checked').val()
       };
+      $('input[name="question1"]:checked').removeAttr("checked");
+      $('input[name="question2"]:checked').removeAttr("checked");
       console.log(data);
       exp.data_trials.push(data);
       if (exp.record) {
@@ -270,8 +277,8 @@ slides.preference_slide = slide({
       controlBar: {
         children: [
           //"playToggle", // remove play button
-          "volumePanel",
-          "volumeMenuButton",
+          //"volumePanel",
+          //"volumeMenuButton",
           "durationDisplay",
           "timeDivider",
           "currentTimeDisplay",
@@ -344,6 +351,7 @@ slides.preference_slide = slide({
         "preference": $('input[name="sentence"]:checked').val(),
         "timestamp": Date.now()
     };
+    $('input[name="sentence"]:checked').removeAttr("checked");
     exp.data_trials.push(data);
     if (exp.record) {
       axios.post(exp.backendURL + '/new/preferences', data)
@@ -418,7 +426,7 @@ slides.preference_slide = slide({
 function init() {
   exp.trials = [];
   exp.catch_trials = [];
-  exp.nQs = 40;
+  exp.nQs = 14;
 
   exp.userId = 0; // TODO
   exp.backendURL = 'http://stanford.edu/~ldomine/cgi-bin/twi.cgi';
@@ -428,35 +436,82 @@ function init() {
     {
       id: 0,
       sentence: "Fufuo",
-      src: "data/fufu2.mp4",
+      src: "data/cook_eat1.mov",
       roi: "data/fufu2_roi.mp4",
-      svc: "SVC sentence",
-      cc: "CC sentence",
-      question1: "What happened in the video?",
-      question1_1: "A happened",
-      question1_2: "B happened",
-      question2: "What happened in the video?",
-      question2_1: "A happened",
-      question2_2: "B happened",
+      svc: "Papa no noa ɛmoo di.",
+      cc: "Papa no noa ɛmoo na wadi.",
+      question1: "Kyensen no a yɛ de noaa ɛmoo no ahosuo yɛ den?",
+      question1_1: "Tuntum",
+      question1_2: "Fitaa",
+      question2: "Nnipa dodoɔ sɛn na edii ɛmoo no?",
+      question2_1: "2",
+      question2_2: "3",
+      title: "Sini a ɛdikan - Dwumadie a ɛdikan (1/5)",
     },
     {
       id: 1,
       sentence: "Market",
-      src: "data/market2.mp4",
+      src: "data/buy_ride1.mov",
       roi: "data/market2_roi.mp4",
-      svc: "SVC sentence",
-      cc: "CC sentence",
-      question1: "What happened in the video?",
-      question1_1: "A happened",
-      question1_2: "B happened",
-      question2: "What happened in the video?",
-      question2_1: "A happened",
-      question2_2: "B happened",
-    }
+      svc: "Papa no tɔɔ sakri no twiieɛ.",
+      cc: "Papa no tɔɔ sakri no ɛna ɔtwiieɛ.",
+      question1: "Tiaseɛnam bɛn na papa no forɔ kɔɔ sikakorabea hɔ?",
+      question1_1: "Taasin",
+      question1_2: "Trɔtrɔ",
+      question2: "Nnipa dodoɔ sɛn na ɛyɛ adwuma wɔ sikakorabea hɔ?",
+      question2_1: "1",
+      question2_2: "3",
+      title: "Sini a ɛtɔso mienu - Dwumadie a ɛtɔso mienu (2/5)"
+    },
+    {
+      id: 2,
+      sentence: "Market",
+      src: "data/wash_hangup1.mov",
+      roi: "data/market2_roi.mp4",
+      svc: "Maame no sii nneɛma no hataeɛ.",
+      cc: "Maame no sii nneɛma no na ɔhataeɛ.",
+      question1: "Dwaresen anaa bakiti no a ɔbaa no de esi nnoɔma no ahosuo yɛ den?",
+      question1_1: "Tuntum",
+      question1_2: "Fitaa",
+      question2: "Nneɛma dodoɔ sɛn na ɔbaa no esiieɛ?",
+      question2_1: "1",
+      question2_2: "3",
+      title: "Sini a ɛtɔso mmieɛnsa - Dwumadie a ɛtɔso mmieɛnsa (3/5)"
+    },
+    {
+      id: 3,
+      sentence: "Market",
+      src: "data/grill_sell1.mov",
+      roi: "data/market2_roi.mp4",
+      svc: "Papa no toto nsuomu nam tɔn.",
+      cc: "Papa no toto nsuomu nam a ɔtɔn.",
+      question1: "Ɛkyɛ ben na na papa no hyɛ?",
+      question1_1: "Ɛdwafoɔ kyɛ",
+      question1_2: "Asogyafoɔ kyɛ",
+      question2: "Adwene dodoɔ sen na papa no tɔnn yɛ?",
+      question2_1: "1",
+      question2_2: "2",
+      title: "Sini a ɛtɔso nan - Dwumadie a ɛtɔso nan (4/5)"
+    },
+    {
+      id: 4,
+      sentence: "Market",
+      src: "data/borrow_wear1.mov",
+      roi: "data/market2_roi.mp4",
+      svc: "Papa no kɔserɛ ɛkyɛ hyɛ.",
+      cc: "Papa no kɔserɛ ekyɛ hyɛ.",
+      question1: "Papa no de adeɛ ben na ɛdɔɔ afuo no ",
+      question1_1: "Trata",
+      question1_2: "Nantwinin",
+      question2: "Sɛ wo hwɛ a na ɛwiem mu nsakyerayɛ a ɛwɔ sini no mu no bɛyɛ den?",
+      question2_1: "Awia merɛ",
+      question2_2: "Awɔ merɛ",
+      title: "Sini a ɛtɔso num - Dwumadie a ɛtɔso num (5/5)"
+    },
   ];
   // Divide into two lists of videos for the 2 parts of the experiment
   exp.videos1 = exp.videos.map(function(video) {
-    return {id: video.id, sentence: video.sentence, src: video.src,
+    return {id: video.id, sentence: video.sentence, src: video.src, title: video.title,
       question1: video.question1, question1_1: video.question1_1, question1_2: video.question1_2,
       question2: video.question2, question2_1: video.question2_1, question2_2: video.question2_2,
     };

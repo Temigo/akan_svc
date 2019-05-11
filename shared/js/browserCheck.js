@@ -128,7 +128,7 @@ function checkBrowser() {
     if (BrowserDetect.browser != 'Chrome' && BrowserDetect.browser != 'Firefox' && BrowserDetect.browser != 'Safari')
 //    if (BrowserDetect.browser != 'Chrome')
     {
-        alert ("Warning: We have not tested this experiment with your browser. We recommend Firefox, Chrome, or Safari.")
+        //alert ("Warning: We have not tested this experiment with your browser. We recommend Firefox, Chrome, or Safari.")
         return false;
     }
     return true;
