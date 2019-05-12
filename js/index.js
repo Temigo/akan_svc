@@ -574,7 +574,7 @@ function init() {
     {
       id: 0,
       sentence: "Cook/eat",
-      src: "data/cook_eat1.mov",
+      src: "data/cook_eat1.mp4",
       roi: "data/cook_eat1_roi.mp4",
       svc: "Papa no noa ɛmoo di.",
       cc: "Papa no noa ɛmoo na wadi.",
@@ -589,7 +589,7 @@ function init() {
     {
       id: 1,
       sentence: "Buy/ride",
-      src: "data/buy_ride1.mov",
+      src: "data/buy_ride1.mp4",
       roi: "data/buy_ride1_roi.mp4",
       svc: "Papa no tɔɔ sakri no twiieɛ.",
       cc: "Papa no tɔɔ sakri no ɛna ɔtwiieɛ.",
@@ -604,7 +604,7 @@ function init() {
     {
       id: 2,
       sentence: "Wash/hangup",
-      src: "data/wash_hangup1.mov",
+      src: "data/wash_hangup1.mp4",
       roi: "data/wash_hangup1_roi.mp4",
       svc: "Maame no sii nneɛma no hataeɛ.",
       cc: "Maame no sii nneɛma no na ɔhataeɛ.",
@@ -619,7 +619,7 @@ function init() {
     {
       id: 3,
       sentence: "Grill/sell",
-      src: "data/grill_sell1.mov",
+      src: "data/grill_sell1.mp4",
       roi: "data/grill_sell1_roi.mp4",
       svc: "Papa no toto nsuomu nam tɔn.",
       cc: "Papa no toto nsuomu nam a ɔtɔn.",
@@ -634,7 +634,7 @@ function init() {
     {
       id: 4,
       sentence: "Borrow/wear",
-      src: "data/borrow_wear1.mov",
+      src: "data/borrow_wear1.mp4",
       roi: "data/borrow_wear1_roi.mp4",
       svc: "Papa no kɔserɛ ɛkyɛ hyɛ.",
       cc: "Papa no kɔserɛ ɛkyɛ na wahyɛ.",
