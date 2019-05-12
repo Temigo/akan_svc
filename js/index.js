@@ -18,23 +18,28 @@ function make_slides(f) {
       $("#myProgressBar").show();
     },
     button : function() {
-      var data = {
-        "user_id": exp.userId,
-        "group_id": exp.assignedGroup,
-        "name": $("#name").val(),
-        "phone": $("#phone").val(),
-        "timestamp": Date.now()
+      if ($("#name").val().length > 0 && $("#phone").val().length > 0) {
+        var data = {
+          "user_id": exp.userId,
+          "group_id": exp.assignedGroup,
+          "name": $("#name").val(),
+          "phone": $("#phone").val(),
+          "timestamp": Date.now()
+        }
+        if (exp.record) {
+          axios.post(exp.backendURL + '/new/users', data)
+          .then(function(response) {
+            console.log(response);
+          }).catch(function(error) {
+            console.log(error);
+          });
+        }
+        window.scrollTo(0, 0);
+        exp.go(); //use exp.go() if and only if there is no "present" data.
       }
-      if (exp.record) {
-        axios.post(exp.backendURL + '/new/users', data)
-        .then(function(response) {
-          console.log(response);
-        }).catch(function(error) {
-          console.log(error);
-        });
+      else {
+        alert("Please fill in your name and phone number.");
       }
-      window.scrollTo(0, 0);
-      exp.go(); //use exp.go() if and only if there is no "present" data.
     }
   });
 
