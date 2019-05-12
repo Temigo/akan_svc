@@ -85,14 +85,14 @@ function make_slides(f) {
         setTimeout(function() {
           player.play();
         }, 8000);
-        var countdown = 5;
+        var countdown = 7;
         var looper = setInterval(function() {
-          $("#countdown").show();
-          $("#countdown p").html("Sini no firi aseɛ simma " + countdown);
+          $("#countdown-practice").show();
+          $("#countdown-practice p").html("Sini no firi aseɛ simma " + countdown);
           countdown = countdown - 1;
-          if (countdown < -1) {
-            $("#countdown p").html();
-            $("#countdown").hide();
+          if (countdown < 0) {
+            $("#countdown-practice p").html();
+            $("#countdown-practice").hide();
             clearInterval(looper);
           }
         }, 1000);
@@ -306,14 +306,14 @@ function make_slides(f) {
         player.play();
       }, 8000);
 
-      var countdown = 5;
+      var countdown = 7;
       var looper = setInterval(function() {
-        $("#countdown").show();
-        $("#countdown p").html("Sini no firi aseɛ simma " + countdown);
+        $("#countdown-video").show();
+        $("#countdown-video p").html("Sini no firi aseɛ simma " + countdown);
         countdown = countdown - 1;
-        if (countdown < -1) {
-          $("#countdown p").html();
-          $("#countdown").hide();
+        if (countdown < 0) {
+          $("#countdown-video p").html();
+          $("#countdown-video").hide();
           clearInterval(looper);
         }
       }, 1000);
@@ -673,8 +673,8 @@ function init() {
   //blocks of the experiment:
   exp.structure=[
     "i0",
-    //"registration",
-    //"instructions",
+    "registration",
+    "instructions",
     "practice",
     "one_slider",
     "preference_slide",
