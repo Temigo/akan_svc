@@ -118,7 +118,7 @@ function make_slides(f) {
         markers: [],
         markerStyle: {
           'width': '4px',
-          'background-color': 'red'
+          'background-color': 'green'
         },
         markerTip: {
           display: false
@@ -218,7 +218,7 @@ function make_slides(f) {
         markers: [],
         markerStyle: {
           'width': '4px',
-          'background-color': 'red'
+          'background-color': 'green'
         },
         markerTip: {
           display: false
