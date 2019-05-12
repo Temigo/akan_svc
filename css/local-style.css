@@ -24,6 +24,9 @@
 display: none;
 }
 
+.redContour {
+	border: 5px red solid;
+}
 /* @font-face {
     font-family: 'west_africa';
     src: url('wa7dou-webfont.woff2') format('woff2'),

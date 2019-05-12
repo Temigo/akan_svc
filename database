@@ -1,0 +1,61 @@
+CREATE TABLE infos (
+	user_id TEXT,
+	assess TEXT,
+	language TEXT,
+	age TEXT,
+	gender TEXT,
+	education TEXT,
+	comments TEXT,
+	problems TEXT,
+	timestamp INTEGER,
+	duration REAL
+);
+
+CREATE TABLE systems (
+	user_id TEXT,
+	browser TEXT,
+	os TEXT,
+	height INTEGER,
+	width INTEGER,
+	timestamp INTEGER
+);
+
+CREATE TABLE preferences (
+	user_id TEXT,
+	video_id INTEGER,
+	svc_description TEXT,
+	cc_description TEXT,
+	preference TEXT,
+	duration REAL,
+	timestamp INTEGER
+);
+
+CREATE TABLE videos (
+	user_id TEXT,
+	video_id INTEGER,
+	src TEXT,
+	poster TEXT,
+	description TEXT,
+	duration REAL,
+	response TEXT,
+	timestamp INTEGER,
+	question1 TEXT,
+	question2 TEXT,
+	response1 TEXT,
+	response2 TEXT
+);
+
+CREATE TABLE practice (
+	user_id TEXT,
+	response TEXT,
+	timestamp INTEGER,
+	duration REAL
+);
+
+CREATE TABLE users (
+	user_id TEXT,
+	group_id INTEGER,
+	name TEXT,
+	phone TEXT,
+	timestamp INTEGER
+);

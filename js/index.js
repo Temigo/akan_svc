@@ -77,14 +77,26 @@ function make_slides(f) {
       }, function() {
         var player = this;
         player.src({src: 'data/training.mp4', type: 'video/mp4', width: 426, height: 240});
-        //Delay to start video
-        // setTimeout(function() {
-        //   player.play();
-        // }, 100);
+        player.poster('data/practice.jpg');
         player.controlBar.progressControl.disable();
         //player.markers.reset([]);
         exp.times = [];
-        player.play();
+        //Delay to start video
+        setTimeout(function() {
+          player.play();
+        }, 8000);
+        var countdown = 5;
+        var looper = setInterval(function() {
+          $("#countdown").show();
+          $("#countdown p").html("Sini no firi aseɛ simma " + countdown);
+          countdown = countdown - 1;
+          if (countdown < -1) {
+            $("#countdown p").html();
+            $("#countdown").hide();
+            clearInterval(looper);
+          }
+        }, 1000);
+        //player.play();
       });
       this.startT = Date.now();
       // player.on("pause", function() {
@@ -121,18 +133,26 @@ function make_slides(f) {
           if(e.keyCode == 32){
               e.preventDefault();
               var time = player.currentTime();
-              player.markers.add([{ time: time, text: 'hi'}]);
-              console.log(player.markers.getMarkers());
+              player.markers.add([{ time: time /*text: 'hi'*/}]);
               exp.times.push(time);
+              $("#practice-video").addClass("redContour");
+              setTimeout(function() {
+                $("#practice-video").removeClass("redContour");
+              }, 300);
           }
       }
       // Event on tap on video
       var hammer = new Hammer(document.getElementById('practice-video'));
       hammer.on('tap', function(ev) {
         ev.preventDefault();
-        player.markers.add([{ time: player.currentTime() /*text: 'hi'*/}]);
+        var time = player.currentTime()
+        player.markers.add([{ time: time /*text: 'hi'*/}]);
         exp.times.push(time);
         player.play();
+        $("#practice-video").addClass("redContour");
+        setTimeout(function() {
+          $("#practice-video").removeClass("redContour");
+        }, 300);
       });
     },
     button : function() {
@@ -229,15 +249,26 @@ function make_slides(f) {
           var time = player.currentTime();
           player.markers.add([{ time: time /*, text: 'hi'*/}]);
           exp.times.push(time);
+          $("#experiment-video").addClass("redContour");
+          setTimeout(function() {
+            $("#experiment-video").removeClass("redContour");
+          }, 300);
         }
       }
       // Event on tap on video
-      var hammer = new Hammer(document.getElementById('practice-video'));
+      var hammer = new Hammer(document.getElementById('experiment-video'));
+      //hammer.add(new Hammer.Tap({ event: 'singletap', taps: 1 }));
       hammer.on('tap', function(ev) {
         ev.preventDefault();
-        player.markers.add([{ time: player.currentTime(), text: 'hi'}]);
-        console.log(player.markers.getMarkers());
+        var time = player.currentTime()
+        player.markers.add([{ time: time, text: 'hi'}]);
+        exp.times.push(time);
         player.play();
+        console.log(time);
+        $("#experiment-video").addClass("redContour");
+        setTimeout(function() {
+          $("#experiment-video").removeClass("redContour");
+        }, 300);
       });
     },
 
@@ -262,6 +293,7 @@ function make_slides(f) {
       $("#question2_2").html(stim.question2_2);
       $("#video_title").html(stim.title);
       var player = this.player;
+
       setTimeout(function() {
         // $("#experiment-video").show();
         // $("#experiment-description").hide();
@@ -273,17 +305,34 @@ function make_slides(f) {
         // Start playing
         player.play();
       }, 8000);
+
+      var countdown = 5;
+      var looper = setInterval(function() {
+        $("#countdown").show();
+        $("#countdown p").html("Sini no firi aseɛ simma " + countdown);
+        countdown = countdown - 1;
+        if (countdown < -1) {
+          $("#countdown p").html();
+          $("#countdown").hide();
+          clearInterval(looper);
+        }
+      }, 1000);
     },
 
     button : function() {
-      window.scrollTo(0, 0);
-      $(".video_part").show();
-      $(".question_part").hide();
-      this.log_responses();
+      if ($('input[name="question1"]:checked').length > 0 && $('input[name="question2"]:checked').length > 0) {
+        window.scrollTo(0, 0);
+        $(".video_part").show();
+        $(".question_part").hide();
+        this.log_responses();
 
-      /* use _stream.apply(this); if and only if there is
-      "present" data. (and only *after* responses are logged) */
-      _stream.apply(this);
+        /* use _stream.apply(this); if and only if there is
+        "present" data. (and only *after* responses are logged) */
+        _stream.apply(this);
+      }
+      else {
+        alert("Please answer both questions before continuing.");
+      }
     },
 
     question: function() {
@@ -389,21 +438,27 @@ slides.preference_slide = slide({
     // exp.times = [];
     // Start playing
     this.player.play();
+
   },
 
   button : function() {
     // if (exp.sliderPost == null) {
     //   $(".err").show();
     // } else {
-    window.scrollTo(0, 0);
-    this.log_responses();
+    if ($('input[name="sentence"]:checked').length > 0) {
+      window.scrollTo(0, 0);
+      this.log_responses();
 
-    /* use _stream.apply(this); if and only if there is
-    "present" data. (and only *after* responses are logged) */
-    _stream.apply(this);
-    // reset player?
-    this.player.src();
-    //}
+      /* use _stream.apply(this); if and only if there is
+      "present" data. (and only *after* responses are logged) */
+      _stream.apply(this);
+      // reset player?
+      this.player.src();
+      //}
+    }
+    else {
+      alert("Please choose your preferred sentence.");
+    }
   },
 
   log_responses : function() {
@@ -418,6 +473,7 @@ slides.preference_slide = slide({
         "timestamp": Date.now()
     };
     console.log(data);
+    console.log($('input[name="sentence"]:checked'));
     $('input[name="sentence"]:checked').removeAttr("checked");
     exp.data_trials.push(data);
     if (exp.record) {
@@ -506,7 +562,7 @@ function init() {
   exp.record = true; // whether to send data to backend - for debugging
 
   exp.groups = [
-    ["", "", "", "", "", ""], // Control
+    ["data/control.jpg", "data/control.jpg", "data/control.jpg", "data/control.jpg", "data/control.jpg", "data/control.jpg"], // Control
     ["data/svc_0.jpg", "data/cc_1.jpg", "data/svc_2.jpg", "data/cc_3.jpg", "data/svc_4.jpg"], // Group 1
     ["data/cc_0.jpg", "data/svc_1.jpg", "data/cc_2.jpg", "data/svc_3.jpg", "data/cc_4.jpg"] // Group 2
   ];
@@ -617,8 +673,8 @@ function init() {
   //blocks of the experiment:
   exp.structure=[
     "i0",
-    "registration",
-    "instructions",
+    //"registration",
+    //"instructions",
     "practice",
     "one_slider",
     "preference_slide",

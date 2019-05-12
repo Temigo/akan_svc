@@ -125,7 +125,7 @@
 				1. Kenkan nɔkasamu yi a ɛkyere saa sini yi suban. Sɛ wo kenkan wie a hwɛ saa sini yi a edisoɔ no.<br/>
 				2. Kyerɛ subankuo ahodoɔ a ɛwɔ saa sini yi mu. (Watch the video and divide it into events.)<br/>
 				<b>Press the space bar OR tap on the video
-				every time that you think an event starts or end.</b> <br/><br/>
+				every time that you think <i>an event ends and another event starts.</i></b> <br/><br/>
 				3. Yi nsɛm bisa mienu a ɛfa ɔkasamu a wo kenkan yɛ a ɛfa sini yi suban no ano.</p>
 			<!-- <p><i>First you will practice on a video to make sure you understand the task.</i></p> -->
   		<button onclick="_s.button()" class="ui primary right floated right labeled icon button">
@@ -147,7 +147,15 @@
 					2. Kyerɛ subankuo ahodoɔ a ɛwɔ saa sini yi mu. (Watch the video and divide it into events.)<br/>
 				</p>
 	  		<p><b>Please press the space bar OR tap on the video every time that you think
-				an event <i>starts</i> or <i>ends</i>. </b></p>
+				<i>an event ends and another event starts.</i> </b></p>
+				<div class="ui icon message" id="countdown">
+					<i class="notched circle loading icon"></i>
+					<div class="content">
+						<div class="header">
+							<p>Sini no firi aseɛ simma  6</p>
+						</div>
+					</div>
+				</div>
 			</div>
 			<video id='practice-video' muted class='video-js' width='426' height='240'>
 				<p class='vjs-no-js'>
@@ -166,18 +174,26 @@
 		<h3 class="ui huge center aligned header" id="video_title"></h3>
 		<div class="video_part">
 			<div class="ui text container">
-				<p>Reminder: <br/>
+				<!-- <p>Reminder: <br/>
 					1. Kenkan nɔkasamu yi a ɛkyere saa sini yi suban. Sɛ wo kenkan wie a hwɛ saa sini yi a edisoɔ no.<br/>
 					2. Kyerɛ subankuo ahodoɔ a ɛwɔ saa sini yi mu. (Watch the video and divide it into events.)<br/>
-				</p>
+				</p> -->
 				<p><b>Please press the space bar OR tap on the video every time that you think
-				an event starts or ends. </b></p>
+				<i>an event ends and another event starts.</i> </b></p>
 			</div>
 	  	<p class="prompt ui large center aligned header"></p>
 	 		<!-- <table id="slider_table" class="slider_table">
 	   		<tr><td class="left">unnatural</td><td class="right">natural</td></tr>
 	   		<tr><td colspan="2"><div id="single_slider" class="slider"></div></td></tr>
 	 		</table> -->
+			<div class="ui icon message" id="countdown">
+				<i class="notched circle loading icon"></i>
+				<div class="content">
+					<div class="header">
+						<p>Sini no firi aseɛ simma 6</p>
+					</div>
+				</div>
+			</div>
 			<video id='experiment-video' muted class='video-js' width='426' height='240'>
 				<p class='vjs-no-js'>
 					To view this video please enable JavaScript, and consider upgrading to a web browser that
