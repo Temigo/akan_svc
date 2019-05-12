@@ -78,7 +78,7 @@
 				If you are not satisfied with how this study is being conducted, or if you have any concerns, complaints, or general questions about the research or your rights as a participant, please contact the Stanford Institutional Review Board (IRB) to speak to someone independent of the research team at (650)-723-2480 or toll free at 1-866-680-2906. You can also write to the Stanford IRB, Stanford University, 3000 El Camino Real, Five Palo Alto Square, 4th Floor, Palo Alto, CA 94306 USA.<br><br>If you agree to participate, please proceed to the study tasks.<br><br></small></small></i>
 			</i></p>
 		</div>
-		<button id="start_button" type="button" onclick="_s.button()" class="ui button fluid primary">Hye aseɛ firi ha!</button>
+		<button id="start_button" type="button" onclick="_s.button()" class="ui huge button fluid primary">Hye aseɛ firi ha!</button>
 		<!--Consent form used in Stanford linguistics department and is good for ling245. Otherwise, modified to whatever is required for you given your affiliation.-->
   </div>
 
@@ -97,7 +97,7 @@
 
 	<div class="slide ui segment" id="registration">
   		<h3 class="ui large center aligned header">Registration</h3>
-			<div class="ui form">
+			<div class="ui massive form">
 				<div class="required field">
 					<label>Name</label>
 					<input type="text" id="name"/>
@@ -107,7 +107,7 @@
 					<label>Phone number</label>
 					<input type="text" id="phone"/>
 				</div>
-				<button onclick="_s.button()" class="ui button fluid primary">Toaso firi ha!</button>
+				<button onclick="_s.button()" class="ui huge button fluid primary">Toaso firi ha!</button>
 			</div>
 	</div>
 
@@ -128,7 +128,7 @@
 				every time that you think <i>an event ends and another event starts.</i></b> <br/><br/>
 				3. Yi nsɛm bisa mienu a ɛfa ɔkasamu a wo kenkan yɛ a ɛfa sini yi suban no ano.</p>
 			<!-- <p><i>First you will practice on a video to make sure you understand the task.</i></p> -->
-  		<button onclick="_s.button()" class="ui primary right floated right labeled icon button">
+  		<button onclick="_s.button()" class="ui primary right floated right labeled icon huge button">
 				<i class="right arrow icon"></i>
 				Toaso firi ha!
 			</button>
@@ -163,7 +163,7 @@
 					<a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
 				</p>
 			</video>
-  		<button onclick="_s.button()" class="next_video-practice ui right floated right labeled icon button disabled">
+  		<button onclick="_s.button()" class="next_video-practice ui right floated right labeled icon huge button disabled">
 				<i class="right arrow icon"></i>
 				Toaso firi ha!
 			</button>
@@ -203,7 +203,7 @@
 			<div id="experiment-description">
 				<p></p>
 			</div>
-	  	<button onclick="_s.question()" class="next_video-experiment ui right floated right labeled icon button disabled">
+	  	<button onclick="_s.question()" class="next_video-experiment ui right floated right labeled icon huge button disabled">
 				<i class="right arrow icon"></i>
 				Toaso firi ha!
 			</button>
@@ -211,19 +211,19 @@
 		<div class="question_part ui text container">
 			<!-- <p>Please answer the 2 following questions about the sentence and video you just watched:</p> -->
 			<p>Yi nsɛm bisa mienu a ɛfa ɔkasamu a wo kenkan yɛ a ɛfa sini yi suban no ano:</p>
-			<div class="ui big form">
+			<div class="ui massive form">
 				<div class="grouped required fields">
 					1. <label for="question1" id="question1_0"></label>
 					<div class="field">
 						<div class="ui radio checkbox">
-							<input type="radio"  name="question1" value="1"/>
-							<label id="question1_1"></label>
+							<input type="radio"  name="question1" value="1" id="question1_option1"/>
+							<label id="question1_1" for="question1_option1"></label>
 						</div>
 					</div>
 					<div class="field">
 						<div class="ui radio checkbox">
-							<input type="radio"  name="question1" value="2"/>
-							<label id="question1_2"></label>
+							<input type="radio"  name="question1" value="2" id="question1_option2"/>
+							<label id="question1_2" for="question1_option2"></label>
 						</div>
 					</div>
 				</div>
@@ -231,19 +231,19 @@
 					2. <label for="question2" id="question2_0"></label>
 					<div class="field">
 						<div class="ui radio checkbox">
-							<input type="radio"  name="question2" value="1"/>
-							<label id="question2_1"></label>
+							<input type="radio"  name="question2" value="1" id="question2_option1"/>
+							<label id="question2_1" for="question2_option1"></label>
 						</div>
 					</div>
 					<div class="field">
 						<div class="ui radio checkbox">
-							<input type="radio"  name="question2" value="2"/>
-							<label id="question2_2"></label>
+							<input type="radio"  name="question2" value="2" id="question2_option2"/>
+							<label id="question2_2" for="question2_option2"></label>
 						</div>
 					</div>
 				</div>
 			</div>
-			<button onclick="_s.button()" class="next_video_questions ui right floated right labeled icon positive button">
+			<button onclick="_s.button()" class="next_video_questions ui right floated right labeled icon positive huge button">
 				<i class="right arrow icon"></i>
 				Toaso firi ha!
 			</button>
@@ -271,18 +271,18 @@
 					<label>Ɔkasamuu a edisoɔ yi mu deɛ hen na ɛyɛ wo dɛ a nte nteaseɛ so tɔ asomu wɔ saa sini yi a woahwɛ yi:</label>
 					<div class="field">
 						<div class="ui radio checkbox">
-							<input type="radio"  name="sentence" value="svc"/>
-							<label><span class="svc-sentence"></span> </label>
+							<input type="radio"  name="sentence" value="svc" id="svc_option"/>
+							<label for="svc_option"><span class="svc-sentence"></span> </label>
 						</div>
 					</div>
 					<div class="field">
 						<div class="ui radio checkbox">
-							<input type="radio"  name="sentence" value="cc"/>
-							<label><span class="cc-sentence"></span></label>
+							<input type="radio"  name="sentence" value="cc" id="cc_option"/>
+							<label for="cc_option"><span class="cc-sentence"></span></label>
 						</div>
 					</div>
 				</div>
-		  	<button onclick="_s.button()" class="next_video ui right floated right labeled icon positive button">
+		  	<button onclick="_s.button()" class="next_video ui right floated right labeled icon positive huge button">
 					<i class="right arrow icon"></i>
 					Toaso firi ha!
 				</button>
@@ -295,7 +295,7 @@
 	    <div class="long_form">
 	      <h3 class="ui large center aligned header">Additional information</h3>
 	      <p class="info">Answering these questions is optional, but will help us understand your answers.</p>
-				<div class="ui form">
+				<div class="ui massive form">
 					<div class="fields">
 						<div class="field">
 				      <label>Native Language (the language(s) spoken at home when you were a child)</label>
@@ -374,7 +374,7 @@
 		      <label>We would be interested in any comments you have about this experiment. Please type them here:</label>
 		      <textarea id="comments" rows="3"></textarea>
 				</div>
-	      <button onclick="_s.submit()" class="ui fluid button primary">Toaso firi ha!</button>
+	      <button onclick="_s.submit()" class="ui fluid huge button primary">Toaso firi ha!</button>
 				</div>
 	    </div>
 	</div>
