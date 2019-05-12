@@ -82,12 +82,6 @@
 		<!--Consent form used in Stanford linguistics department and is good for ling245. Otherwise, modified to whatever is required for you given your affiliation.-->
   </div>
 
-	<!-- <div class="slide ui segment" id="registration">
-  		<h3>Registration</h3>
-  		<p>Email address: <input type="text" id="email" /> </p>
-  		<button onclick="_s.button()">Continue</button>
-	</div> -->
-
 	<div id="myProgressBar" class="ui indicating olive progress">
 		<!-- <span>Progress:</span>
 		<div class="bar-wrapper">
@@ -99,6 +93,22 @@
 		</div>
 		<!-- <div class="label">Progress</div> -->
 		<div class="label">Wo mmɔdenmmɔ gyinapɛn</div>
+	</div>
+
+	<div class="slide ui segment" id="registration">
+  		<h3 class="ui large center aligned header">Registration</h3>
+			<div class="ui form">
+				<div class="required field">
+					<label>Name</label>
+					<input type="text" id="name"/>
+				</div>
+
+				<div class="required field">
+					<label>Phone number</label>
+					<input type="text" id="phone"/>
+				</div>
+				<button onclick="_s.button()" class="ui button fluid primary">Toaso firi ha!</button>
+			</div>
 	</div>
 
 	<!--Instruction slide-->
@@ -174,6 +184,9 @@
 					<a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
 				</p>
 			</video>
+			<div id="experiment-description">
+				<p></p>
+			</div>
 	  	<button onclick="_s.question()" class="next_video ui right floated right labeled icon button disabled">
 				<i class="right arrow icon"></i>
 				Toaso firi ha!
@@ -268,16 +281,6 @@
 	      <p class="info">Answering these questions is optional, but will help us understand your answers.</p>
 				<div class="ui form">
 					<div class="fields">
-						<div class="field">
-							<label>Email</label>
-							<input type="text" id="email"/>
-						</div>
-
-						<div class="field">
-							<label>Name</label>
-							<input type="text" id="name"/>
-						</div>
-
 						<div class="field">
 				      <label>Native Language (the language(s) spoken at home when you were a child)</label>
 							<input type="text" id="language"/>

@@ -12,6 +12,32 @@ function make_slides(f) {
     }
   });
 
+  slides.registration = slide({
+    name : "registration",
+    start: function() {
+      $("#myProgressBar").show();
+    },
+    button : function() {
+      var data = {
+        "user_id": exp.userId,
+        "group_id": exp.assignedGroup,
+        "name": $("#name").val(),
+        "phone": $("#phone").val(),
+        "timestamp": Date.now()
+      }
+      if (exp.record) {
+        axios.post(exp.backendURL + '/new/users', data)
+        .then(function(response) {
+          console.log(response);
+        }).catch(function(error) {
+          console.log(error);
+        });
+      }
+      window.scrollTo(0, 0);
+      exp.go(); //use exp.go() if and only if there is no "present" data.
+    }
+  });
+
   slides.instructions = slide({
     name : "instructions",
     button : function() {
@@ -20,6 +46,10 @@ function make_slides(f) {
       exp.go(); //use exp.go() if and only if there is no "present" data.
     }
   });
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////// PRACTICE /////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////
 
   slides.practice = slide({
     name : "practice",
@@ -52,9 +82,11 @@ function make_slides(f) {
         //   player.play();
         // }, 100);
         player.controlBar.progressControl.disable();
+        //player.markers.reset([]);
+        exp.times = [];
         player.play();
       });
-
+      this.startT = Date.now();
       // player.on("pause", function() {
       //   player.play();
       // });
@@ -87,24 +119,45 @@ function make_slides(f) {
       // Event on space bar key press
       document.body.onkeyup = function(e){
           if(e.keyCode == 32){
-              player.markers.add([{ time: player.currentTime(), text: 'hi'}]);
+              e.preventDefault();
+              var time = player.currentTime();
+              player.markers.add([{ time: time, text: 'hi'}]);
               console.log(player.markers.getMarkers());
+              exp.times.push(time);
           }
       }
       // Event on tap on video
       var hammer = new Hammer(document.getElementById('practice-video'));
       hammer.on('tap', function(ev) {
         ev.preventDefault();
-        player.markers.add([{ time: player.currentTime(), text: 'hi'}]);
-        console.log(player.markers.getMarkers());
+        player.markers.add([{ time: player.currentTime() /*text: 'hi'*/}]);
+        exp.times.push(time);
         player.play();
       });
     },
     button : function() {
       window.scrollTo(0, 0);
+      var data = {
+        "user_id": exp.userId,
+        "response" : exp.times,
+        "duration": (Date.now() - this.startT)/60000,
+        "timestamp": Date.now(),
+      };
+      if (exp.record) {
+        axios.post(exp.backendURL + '/new/practice', data)
+        .then(function(response) {
+          console.log(response);
+        }).catch(function(error) {
+          console.log(error);
+        });
+      }
       exp.go(); //use exp.go() if and only if there is no "present" data.
     }
   });
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////// VIDEO ///////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////
 
   slides.one_slider = slide({
     name : "one_slider",
@@ -140,6 +193,7 @@ function make_slides(f) {
         // }, 0);
         player.controlBar.progressControl.disable();
       });
+
       player.markers({
         markers: [],
         markerStyle: {
@@ -183,6 +237,7 @@ function make_slides(f) {
         ev.preventDefault();
         player.markers.add([{ time: player.currentTime(), text: 'hi'}]);
         console.log(player.markers.getMarkers());
+        player.play();
       });
     },
 
@@ -190,7 +245,14 @@ function make_slides(f) {
       $(".err").hide();
       this.stim = stim; // store this information in the slide so you can record it later
       // Display sentence
-      console.log(stim)
+      console.log(stim);
+
+      // $("#experiment-video").hide();
+      // $("#experiment-description p").html(stim.svc);
+      if (stim.poster.length > 0) {
+        this.player.poster(stim.poster);
+      }
+
       //$(".prompt").html(stim.sentence);
       $("#question1_0").html(stim.question1);
       $("#question1_1").html(stim.question1_1);
@@ -199,21 +261,21 @@ function make_slides(f) {
       $("#question2_1").html(stim.question2_1);
       $("#question2_2").html(stim.question2_2);
       $("#video_title").html(stim.title);
-      //setTimeout(function() {
+      var player = this.player;
+      setTimeout(function() {
+        // $("#experiment-video").show();
+        // $("#experiment-description").hide();
         // Set src
-        this.player.src({src: stim.src, type: 'video/mp4'});
+        player.src({src: stim.src, type: 'video/mp4'});
         // Reset markers
-        this.player.markers.reset([]);
+        player.markers.reset([]);
         exp.times = [];
         // Start playing
-        this.player.play();
-      //}, 8000);
+        player.play();
+      }, 8000);
     },
 
     button : function() {
-      // if (exp.sliderPost == null) {
-      //   $(".err").show();
-      // } else {
       window.scrollTo(0, 0);
       $(".video_part").show();
       $(".question_part").hide();
@@ -222,31 +284,29 @@ function make_slides(f) {
       /* use _stream.apply(this); if and only if there is
       "present" data. (and only *after* responses are logged) */
       _stream.apply(this);
-      //}
     },
 
     question: function() {
       window.scrollTo(0, 0);
       $(".video_part").hide();
       $(".question_part").show();
-      console.log('question');
-      // this.button();
     },
 
-
     log_responses : function() {
+      console.log($('input[name="question1"]:checked').val());
       var data = {
           "user_id": exp.userId,
           "video_id": this.stim.id,
           "src" : this.stim.src,
+          "poster": this.stim.poster,
           "description": this.stim.sentence,
           "response" : exp.times,
           "duration": (Date.now() - this.startT)/60000,
           "timestamp": Date.now(),
           "question1": this.stim.question1,
-          "question1_response": $('input[name="question1"]:checked').val(),
+          "response1": $('input[name="question1"]:checked').val(),
           "question2": this.stim.question2,
-          "question2_response": $('input[name="question2"]:checked').val()
+          "response2": $('input[name="question2"]:checked').val()
       };
       $('input[name="question1"]:checked').removeAttr("checked");
       $('input[name="question2"]:checked').removeAttr("checked");
@@ -262,7 +322,11 @@ function make_slides(f) {
       }
     }
   });
-////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////// PREFERENCE ///////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
 slides.preference_slide = slide({
   name : "preference_slide",
   present: exp.videos2, //every element in exp.stims is passed to present_handle one by one as 'stim'
@@ -276,7 +340,7 @@ slides.preference_slide = slide({
       fluid: true, // center and adapt to video ratio
       controlBar: {
         children: [
-          //"playToggle", // remove play button
+          "playToggle", // remove play button
           //"volumePanel",
           //"volumeMenuButton",
           "durationDisplay",
@@ -337,6 +401,8 @@ slides.preference_slide = slide({
     /* use _stream.apply(this); if and only if there is
     "present" data. (and only *after* responses are logged) */
     _stream.apply(this);
+    // reset player?
+    this.player.src();
     //}
   },
 
@@ -351,6 +417,7 @@ slides.preference_slide = slide({
         "preference": $('input[name="sentence"]:checked').val(),
         "timestamp": Date.now()
     };
+    console.log(data);
     $('input[name="sentence"]:checked').removeAttr("checked");
     exp.data_trials.push(data);
     if (exp.record) {
@@ -364,9 +431,10 @@ slides.preference_slide = slide({
   }
 });
 
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////// INFO  ////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-////////////////////////////////////////////////////////////////////////////////
   slides.subj_info =  slide({
     name : "subj_info",
     submit : function(e){
@@ -380,9 +448,10 @@ slides.preference_slide = slide({
         education : $("#education").val(),
         comments : $("#comments").val(),
         problems: $("#problems").val(),
+        duration : (Date.now() - exp.startT)/60000
         //fairprice: $("#fairprice").val()
-        email: $("#email").val(),
-        name: $("#name").val(),
+        //email: $("#email").val(),
+        //name: $("#name").val(),
       };
       window.scrollTo(0, 0);
       exp.go(); //use exp.go() if and only if there is no "present" data.
@@ -403,12 +472,13 @@ slides.preference_slide = slide({
       console.log(exp.data);
       //setTimeout(function() {turk.submit(exp.data);}, 1000);
       if (exp.record) {
-        axios.post(exp.backendURL + '/new/users', exp.subj_data)
+        axios.post(exp.backendURL + '/new/infos', exp.subj_data)
         .then(function(response) {
           console.log(response);
         }).catch(function(error) {
           console.log(error);
         });
+        exp.system.timestamp = Date.now();
         axios.post(exp.backendURL + '/new/systems', exp.system)
         .then(function(response) {
           console.log(response);
@@ -422,22 +492,34 @@ slides.preference_slide = slide({
   return slides;
 }
 
-/// init ///
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////// SETUP ////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////
 function init() {
   exp.trials = [];
   exp.catch_trials = [];
   exp.nQs = 14;
 
-  exp.userId = 0; // TODO
+  exp.userId = Math.random().toString(36).substr(2, 9); // TODO
+  console.log('User id', exp.userId);
   exp.backendURL = 'http://stanford.edu/~ldomine/cgi-bin/twi.cgi';
-  exp.record = false; // whether to send data to backend - for debugging
+  exp.record = true; // whether to send data to backend - for debugging
+
+  exp.groups = [
+    ["", "", "", "", "", ""], // Control
+    ["data/svc_0.jpg", "data/cc_1.jpg", "data/svc_2.jpg", "data/cc_3.jpg", "data/svc_4.jpg"], // Group 1
+    ["data/cc_0.jpg", "data/svc_1.jpg", "data/cc_2.jpg", "data/svc_3.jpg", "data/cc_4.jpg"] // Group 2
+  ];
+  console.log(exp.groups);
+  exp.assignedGroup = Math.floor(Math.random() * exp.groups.length);
+  console.log("Assigned group: ", exp.assignedGroup);
 
   exp.videos = [
     {
       id: 0,
-      sentence: "Fufuo",
+      sentence: "Cook/eat",
       src: "data/cook_eat1.mov",
-      roi: "data/fufu2_roi.mp4",
+      roi: "data/cook_eat1_roi.mp4",
       svc: "Papa no noa ɛmoo di.",
       cc: "Papa no noa ɛmoo na wadi.",
       question1: "Kyensen no a yɛ de noaa ɛmoo no ahosuo yɛ den?",
@@ -450,9 +532,9 @@ function init() {
     },
     {
       id: 1,
-      sentence: "Market",
+      sentence: "Buy/ride",
       src: "data/buy_ride1.mov",
-      roi: "data/market2_roi.mp4",
+      roi: "data/buy_ride1_roi.mp4",
       svc: "Papa no tɔɔ sakri no twiieɛ.",
       cc: "Papa no tɔɔ sakri no ɛna ɔtwiieɛ.",
       question1: "Tiaseɛnam bɛn na papa no forɔ kɔɔ sikakorabea hɔ?",
@@ -465,9 +547,9 @@ function init() {
     },
     {
       id: 2,
-      sentence: "Market",
+      sentence: "Wash/hangup",
       src: "data/wash_hangup1.mov",
-      roi: "data/market2_roi.mp4",
+      roi: "data/wash_hangup1_roi.mp4",
       svc: "Maame no sii nneɛma no hataeɛ.",
       cc: "Maame no sii nneɛma no na ɔhataeɛ.",
       question1: "Dwaresen anaa bakiti no a ɔbaa no de esi nnoɔma no ahosuo yɛ den?",
@@ -480,9 +562,9 @@ function init() {
     },
     {
       id: 3,
-      sentence: "Market",
+      sentence: "Grill/sell",
       src: "data/grill_sell1.mov",
-      roi: "data/market2_roi.mp4",
+      roi: "data/grill_sell1_roi.mp4",
       svc: "Papa no toto nsuomu nam tɔn.",
       cc: "Papa no toto nsuomu nam a ɔtɔn.",
       question1: "Ɛkyɛ ben na na papa no hyɛ?",
@@ -495,11 +577,11 @@ function init() {
     },
     {
       id: 4,
-      sentence: "Market",
+      sentence: "Borrow/wear",
       src: "data/borrow_wear1.mov",
-      roi: "data/market2_roi.mp4",
+      roi: "data/borrow_wear1_roi.mp4",
       svc: "Papa no kɔserɛ ɛkyɛ hyɛ.",
-      cc: "Papa no kɔserɛ ekyɛ hyɛ.",
+      cc: "Papa no kɔserɛ ɛkyɛ na wahyɛ.",
       question1: "Papa no de adeɛ ben na ɛdɔɔ afuo no ",
       question1_1: "Trata",
       question1_2: "Nantwinin",
@@ -510,12 +592,13 @@ function init() {
     },
   ];
   // Divide into two lists of videos for the 2 parts of the experiment
-  exp.videos1 = exp.videos.map(function(video) {
+  exp.videos1 = exp.videos.map(function(video, index) {
     return {id: video.id, sentence: video.sentence, src: video.src, title: video.title,
       question1: video.question1, question1_1: video.question1_1, question1_2: video.question1_2,
       question2: video.question2, question2_1: video.question2_1, question2_2: video.question2_2,
+      svc: video.svc, cc: video.cc, poster: this.groups[this.assignedGroup][index]
     };
-  });
+  }, exp);
   exp.videos2 = exp.videos.map(function(video) {
     return {id:video.id, roi: video.roi, svc: video.svc, cc: video.cc};
   });
@@ -534,7 +617,7 @@ function init() {
   //blocks of the experiment:
   exp.structure=[
     "i0",
-    //"registration",
+    "registration",
     "instructions",
     "practice",
     "one_slider",

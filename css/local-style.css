@@ -12,14 +12,19 @@
 } */
 
 .video-js .vjs-progress-holder {
-	height: 0.5em;
+	height: 1em;
 }
 
 .video-js {
 	margin-bottom: 10px;
 }
 
-@font-face {
+.video-js .vjs-big-play-button
+{
+display: none;
+}
+
+/* @font-face {
     font-family: 'west_africa';
     src: url('wa7dou-webfont.woff2') format('woff2'),
          url('wa7dou-webfont.woff') format('woff');
@@ -37,4 +42,10 @@ b, u, i, center, dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend, table,
 caption, tbody, tfoot, thead, tr, th, td {
 	font-family: "west_africa";
+} */
+
+div#video-description {
+	display: block;
+	width: 100%;
+	height: 100%;
 }
