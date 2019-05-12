@@ -105,13 +105,13 @@ function make_slides(f) {
       // Disable button until video has finished playing
       if (exp.record) {
         player.on("ended", function() {
-          $(".next_video").removeClass("disabled");
-          $(".next_video").addClass("positive");
+          $(".next_video-practice").removeClass("disabled");
+          $(".next_video-practice").addClass("positive");
         });
       }
       else {
-        $(".next_video").removeClass("disabled");
-        $(".next_video").addClass("positive");
+        $(".next_video-practice").removeClass("disabled");
+        $(".next_video-practice").addClass("positive");
       }
 
       player.markers({
@@ -127,7 +127,6 @@ function make_slides(f) {
           return false;
         },
       });
-
       // Event on space bar key press
       document.body.onkeyup = function(e){
           if(e.keyCode == 32){
@@ -154,6 +153,7 @@ function make_slides(f) {
           $("#practice-video").removeClass("redContour");
         }, 300);
       });
+
     },
     button : function() {
       window.scrollTo(0, 0);
@@ -233,13 +233,13 @@ function make_slides(f) {
       // Disable button until video has finished playing
       if (exp.record) {
         this.player.on("ended", function() {
-          $(".next_video").removeClass("disabled");
-          $(".next_video").addClass("positive");
+          $(".next_video-experiment").removeClass("disabled");
+          $(".next_video-experiment").addClass("positive");
         });
       }
       else {
-        $(".next_video").removeClass("disabled");
-        $(".next_video").addClass("positive");
+        $(".next_video-experiment").removeClass("disabled");
+        $(".next_video-experiment").addClass("positive");
       }
 
       // Event on space bar key press
@@ -261,7 +261,7 @@ function make_slides(f) {
       hammer.on('tap', function(ev) {
         ev.preventDefault();
         var time = player.currentTime()
-        player.markers.add([{ time: time, text: 'hi'}]);
+        player.markers.add([{ time: time /*, text: 'hi'*/}]);
         exp.times.push(time);
         player.play();
         console.log(time);
@@ -280,9 +280,10 @@ function make_slides(f) {
 
       // $("#experiment-video").hide();
       // $("#experiment-description p").html(stim.svc);
-      if (stim.poster.length > 0) {
-        this.player.poster(stim.poster);
-      }
+      //if (stim.poster.length > 0) {
+      this.player.src({src: stim.src, type: 'video/mp4'});
+      this.player.poster(stim.poster);
+      //}
 
       //$(".prompt").html(stim.sentence);
       $("#question1_0").html(stim.question1);
@@ -295,10 +296,6 @@ function make_slides(f) {
       var player = this.player;
 
       setTimeout(function() {
-        // $("#experiment-video").show();
-        // $("#experiment-description").hide();
-        // Set src
-        player.src({src: stim.src, type: 'video/mp4'});
         // Reset markers
         player.markers.reset([]);
         exp.times = [];
@@ -325,7 +322,8 @@ function make_slides(f) {
         $(".video_part").show();
         $(".question_part").hide();
         this.log_responses();
-
+        $(".next_video-experiment").addClass("disabled");
+        $(".next_video-experiment").removeClass("positive");
         /* use _stream.apply(this); if and only if there is
         "present" data. (and only *after* responses are logged) */
         _stream.apply(this);
