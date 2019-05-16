@@ -7,7 +7,8 @@
     <!--JS-->
 
     <!-- external general utilities -->
-    <script src="shared/js/jquery-1.11.1.min.js"></script>
+    <!-- <script src="shared/js/jquery-1.11.1.min.js"></script> -->
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="shared/full-projects/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="shared/js/underscore-min.js"></script>
     <!-- if you want to draw stuff: -->
@@ -34,7 +35,8 @@
 		<!-- Semantic UI -->
 		<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 		<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script> -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/api.min.js"></script>
+
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/api.min.js"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/button.min.css"/>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/checkbox.min.css"/>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/checkbox.min.js"></script>
@@ -50,8 +52,10 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/message.min.css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/progress.min.css" />
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/progress.min.js"></script>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/segment.min.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/segment.min.css" /> -->
 
+		<script src="https://cdn.jsdelivr.net/combine/npm/semantic-ui@2.4.2/dist/components/checkbox.min.js,npm/semantic-ui@2.4.2/dist/components/dropdown.min.js,npm/semantic-ui@2.4.2/dist/components/form.min.js,npm/semantic-ui@2.4.2/dist/components/progress.min.js"></script>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/semantic-ui@2.4.2/dist/components/button.min.css,npm/semantic-ui@2.4.2/dist/components/checkbox.min.css,npm/semantic-ui@2.4.2/dist/components/container.min.css,npm/semantic-ui@2.4.2/dist/components/dropdown.min.css,npm/semantic-ui@2.4.2/dist/components/form.min.css,npm/semantic-ui@2.4.2/dist/components/header.min.css,npm/semantic-ui@2.4.2/dist/components/icon.min.css,npm/semantic-ui@2.4.2/dist/components/input.min.css,npm/semantic-ui@2.4.2/dist/components/label.min.css,npm/semantic-ui@2.4.2/dist/components/message.min.css,npm/semantic-ui@2.4.2/dist/components/progress.min.css,npm/semantic-ui@2.4.2/dist/components/segment.min.css" />
 
 		<!-- Video.js -->
 		<link href="https://vjs.zencdn.net/7.5.4/video-js.min.css" rel="stylesheet"/>
@@ -65,7 +69,7 @@
 		<!-- axios for REST requests -->
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-		<script src="js/hammer.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/hammerjs/2.0.8/hammer.min.js"></script>
 		<link href="css/local-style.css" rel="stylesheet" type="text/css"/>
 </head>
 
@@ -100,7 +104,7 @@
 		<!--Consent form used in Stanford linguistics department and is good for ling245. Otherwise, modified to whatever is required for you given your affiliation.-->
   </div>
 
-	<div id="myProgressBar" class="ui indicating olive progress">
+	<div id="myProgressBar" class="ui progress">
 		<!-- <span>Progress:</span>
 		<div class="bar-wrapper">
 			<div class="bar" width="0%">

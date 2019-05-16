@@ -15,6 +15,9 @@ function make_slides(f) {
   slides.registration = slide({
     name : "registration",
     start: function() {
+      $("#myProgressBar").progress({
+        showActivity: false // TODO
+      });
       $("#myProgressBar").show();
     },
     button : function() {
