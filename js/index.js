@@ -84,7 +84,36 @@ function make_slides(f) {
         }
       }, function() {
         var player = this;
-        player.src({src: 'data/training1.mp4', type: 'video/mp4', width: 426, height: 240});
+
+        // var req = new XMLHttpRequest();
+        // req.open('GET', 'data/training1.mp4', true);
+        // req.responseType = 'blob';
+        //
+        // req.onload = function() {
+        //    // Onload is triggered even on 404
+        //    // so we need to check the status code
+        //    if (this.status === 200) {
+        //       var videoBlob = this.response;
+        //       var vid = URL.createObjectURL(videoBlob); // IE10+
+        //       // Video is now downloaded
+        //       // and we can set it as source on the video element
+        //       player.src({src: vid, type: 'video/mp4', width: 426, height: 240});
+        //       console.log(vid);
+        //       $(".dimmer").removeClass("active");
+        //    }
+        // }
+        // req.onerror = function(e) {
+        //    // Error
+        //    console.log(e);
+        // }
+        //
+        // req.send();
+
+
+        player.src([
+          {src: 'data/training1.mp4', type: 'video/mp4', width: 426, height: 240},
+          {src: 'data/training1.webm', type: 'video/webm', width: 426, height: 240}
+        ]);
         player.poster('data/practice.jpg');
         player.controlBar.progressControl.disable();
         //player.markers.reset([]);
@@ -289,7 +318,10 @@ function make_slides(f) {
       // $("#experiment-video").hide();
       // $("#experiment-description p").html(stim.svc);
       //if (stim.poster.length > 0) {
-      this.player.src({src: stim.src, type: 'video/mp4'});
+      this.player.src([
+        {src: stim.src + '.mp4', type: 'video/mp4'},
+        {src: stim.src + '.webm', type: 'video/webm'}
+      ]);
       this.player.poster(stim.poster);
       //}
 
@@ -438,7 +470,10 @@ slides.preference_slide = slide({
     $(".svc-sentence").html(stim.svc);
     $(".cc-sentence").html(stim.cc);
     // Set src
-    this.player.src({src: stim.roi, type: 'video/mp4'});
+    this.player.src([
+      {src: stim.roi + '.mp4', type: 'video/mp4'},
+      {src: stim.roi + '.webm', type: 'video/webm'}
+    ]);
     // Reset markers
     // this.player.markers.reset([]);
     // exp.times = [];
@@ -580,8 +615,8 @@ function init() {
     {
       id: 0,
       sentence: "Cook/eat",
-      src: "data/cook_eat2.mp4",
-      roi: "data/cook_eat2_roi.mp4",
+      src: "data/cook_eat2",
+      roi: "data/cook_eat2_roi",
       svc: "Papa no noa ɛmoo di.",
       cc: "Papa no noa ɛmoo na wadi.",
       question1: "Kyensen no a yɛ de noaa ɛmoo no ahosuo yɛ den?",
@@ -595,8 +630,8 @@ function init() {
     {
       id: 1,
       sentence: "Buy/ride",
-      src: "data/buy_ride2.mp4",
-      roi: "data/buy_ride2_roi.mp4",
+      src: "data/buy_ride2",
+      roi: "data/buy_ride2_roi",
       svc: "Papa no tɔɔ sakri no twiieɛ.",
       cc: "Papa no tɔɔ sakri no ɛna ɔtwiieɛ.",
       question1: "Tiaseɛnam bɛn na papa no forɔ kɔɔ sikakorabea hɔ?",
@@ -610,8 +645,8 @@ function init() {
     {
       id: 2,
       sentence: "Wash/hangup",
-      src: "data/wash_hangup2.mp4",
-      roi: "data/wash_hangup2_roi.mp4",
+      src: "data/wash_hangup2",
+      roi: "data/wash_hangup2_roi",
       svc: "Maame no sii nneɛma no hataeɛ.",
       cc: "Maame no sii nneɛma no na ɔhataeɛ.",
       question1: "Dwaresen anaa bakiti no a ɔbaa no de esi nnoɔma no ahosuo yɛ den?",
@@ -625,8 +660,8 @@ function init() {
     {
       id: 3,
       sentence: "Grill/sell",
-      src: "data/grill_sell2.mp4",
-      roi: "data/grill_sell2_roi.mp4",
+      src: "data/grill_sell2",
+      roi: "data/grill_sell2_roi",
       svc: "Papa no toto nsuomu nam tɔn.",
       cc: "Papa no toto nsuomu nam a ɔtɔn.",
       question1: "Ɛkyɛ ben na na papa no hyɛ?",
@@ -640,8 +675,8 @@ function init() {
     {
       id: 4,
       sentence: "Borrow/wear",
-      src: "data/borrow_wear2.mp4",
-      roi: "data/borrow_wear2_roi.mp4",
+      src: "data/borrow_wear2",
+      roi: "data/borrow_wear2_roi",
       svc: "Papa no kɔserɛ ɛkyɛ hyɛ.",
       cc: "Papa no kɔserɛ ɛkyɛ na wahyɛ.",
       question1: "Papa no de adeɛ ben na ɛdɔɔ afuo no ",

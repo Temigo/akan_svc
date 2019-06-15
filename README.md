@@ -13,9 +13,11 @@ Uses VideoJS library to play the videos.
 The materials are in `data/` folder. The list of sentences and descriptions,
 as well as filler questions, are at the end of `js/index.js`.
 
+The anonymized data that was collected is in `data.RData` and the analysis
+script is in `analysis.R`.
+
 ### Backend
 The backend code uses Flask and is in `twi.cgi` and `twi.py`.
-It is currently hosted at
 
 ### Debug mode
 To run in "debug" mode (without recording results in the backend) change the value
